@@ -7,7 +7,8 @@ string flip(string input) {
     int currentSp = 0;
     int prevSp = 0;
     string result = "";
-    for(int i = 0;i<input.size();i++) {
+    int size = input.length();
+    for(int i = 0;i<size;i++) {
         if (ispunct(input[i])!=0 || input[i] == ' ') { 
             prevSp = currentSp;
             currentSp = i;
@@ -18,7 +19,7 @@ string flip(string input) {
         }
     }
     prevSp = currentSp;
-    currentSp = input.length()-1;
+    currentSp = size-1;
     string str = input.substr(prevSp, currentSp);
     result += str;
     cout<<result<<endl;
