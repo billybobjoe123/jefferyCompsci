@@ -1,0 +1,4 @@
+origin  git@github.com:billybobjoe123/jefferyCompsci.git (fetch)
+origin  git@github.com:billybobjoe123/jefferyCompsci.git (push) 
+upstream        https://github.com/ucsb-cs24/f22 (fetch)        
+upstream        https://github.com/ucsb-cs24/f22 (push)
