@@ -40,7 +40,7 @@ vector<int> findSpaceAndPunct(string input) {
     vector<int> ind;
     int size = input.length();
     for(int i = 0;i<size;i++) {
-        if (ispunct(input[i])!=0 || input[i] == ' ') { 
+        if (ispunct(input[i])!=0 || input[i] == ' '|| input[i] == '\t') { 
             ind.push_back(i);
         }
     }
