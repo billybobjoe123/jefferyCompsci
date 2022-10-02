@@ -7,10 +7,36 @@ string flip(string input, vector<int> ind) {
     int size = ind.size();
     int length = input.length();
     string result = "";
+<<<<<<< HEAD
     if (size == 0) {
         string temp = input;
         reverse(temp.begin(),temp.end());
         return temp;
+=======
+    int isSec = 0;
+    int size = input.length();
+    for(int i = 0;i<size;i++) {
+        if (ispunct(input[i])!=0 || input[i] == ' ') { 
+            prevSp = currentSp;
+            currentSp = i;
+            if (isSec==1) {
+                prevSp++;
+            }
+            string str = input.substr(prevSp, currentSp);
+            isSec = 1;
+            //cout<<str<<endl;
+            reverse(str.begin(), str.end());
+            result += str + input[i];
+            //cout<<result<<endl;
+        }
+    }
+    //cout<<result<<endl;
+    prevSp = currentSp;
+    currentSp = size-1;
+    string str;
+    if (currentSp != prevSp) {
+        str = input.substr(prevSp, size);
+>>>>>>> ec662c93e077efe43645c2c461e452704e2ce100
     }
     else {
         string temp = input.substr(0,ind[0]);
