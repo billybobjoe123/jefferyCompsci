@@ -18,13 +18,13 @@ string flip(string input) {
             }
             string str = input.substr(prevSp, currentSp);
             isSec = 1;
-            cout<<str<<endl;
+            //cout<<str<<endl;
             reverse(str.begin(), str.end());
             result += str + input[i];
-            cout<<result<<endl;
+            //cout<<result<<endl;
         }
     }
-    cout<<result<<endl;
+    //cout<<result<<endl;
     prevSp = currentSp;
     currentSp = size-1;
     string str;
