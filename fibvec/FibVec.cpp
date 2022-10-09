@@ -50,12 +50,13 @@ size_t FibVec::count() const
     return length;
 }
 void FibVec::insert(int val, size_t ind) {
-    if (length+1>size) {
-        grow();
-    }
+    
     
     if (ind > length) {
         throw std::out_of_range("index out of bounds in insert() function");
+    }
+    if (length+1>size) {
+        grow();
     }
     int temp = array[ind];
     array[ind] = val;
@@ -67,7 +68,7 @@ void FibVec::insert(int val, size_t ind) {
     }
     array[length] = val;
     length++;
-    grow();
+    
 }
 int FibVec::lookup(size_t ind) const 
 {
