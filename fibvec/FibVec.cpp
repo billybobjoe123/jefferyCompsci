@@ -109,7 +109,7 @@ void FibVec::remove(size_t ind) {
     if (ind > length-1) {
         throw std::out_of_range("index out of bounds in remove() function");
     }
-    if (length!=0) {
+    if (length>1) {
         for (size_t i = ind;i<length-1;i++) {
             array[ind] = array[ind+1];
         }
