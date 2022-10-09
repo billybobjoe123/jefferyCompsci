@@ -12,7 +12,7 @@ void FibVec::shrink(){
         size = prevsize;
         prevsize = prevprevsize;
         prevprevsize = size - prevsize;
-        if (prevprevsize < 1) {
+        if (prevprevsize ==0) {
             prevprevsize = 1;
         }
     }
@@ -83,7 +83,6 @@ int FibVec::pop() {
     return val;
 }
 void FibVec::push(int val) {
-    grow();
     array[length] = val;
     length++;
     grow();
