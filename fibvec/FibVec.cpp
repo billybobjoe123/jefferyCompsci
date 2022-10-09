@@ -70,7 +70,7 @@ class FibVec {
             array[length] = val;
             length++;
         }
-        const int lookup(int ind) {
+        const int lookup(size_t ind) {
             return array[ind];
         }
         int pop() {
