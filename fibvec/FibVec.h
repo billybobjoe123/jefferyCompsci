@@ -1,5 +1,5 @@
 #include <cstddef>
-
+#pragma once
 #ifndef FibVec_H
 #define FibVec_H
 // code
