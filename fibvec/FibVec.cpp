@@ -93,8 +93,8 @@ int FibVec::pop() {
     }
     int val = array[length-1];
     //array[length-1] = NULL;
-    shrink();
     length--;
+    shrink();
     return val;
 }
 void FibVec::push(int val) {
