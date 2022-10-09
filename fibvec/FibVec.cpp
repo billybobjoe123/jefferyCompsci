@@ -43,11 +43,11 @@ FibVec::~FibVec() {
 
 size_t FibVec::capacity() const 
 {
-    return length;
+    return size;
 }
 size_t FibVec::count() const 
 {
-    return size;
+    return length;
 }
 void FibVec::insert(int val, size_t ind) {
     grow();
