@@ -54,7 +54,7 @@ represented as `size_t`s. If a function doesn't modify your vector, mark it as a
 
 - The default constructor creates an empty vector with a capacity of one.
 - The destructor cleans up any allocated memory.
-- The `capacity` function returns the total size of the storage buffer.
+- The `capacity` function returns the total size of the storage buffer. 
 - The `count` function returns the number of items stored in the vector.
 - The `insert` function takes two arguments: the first is a value and the
   second is an index.  It stores the value at the given index.  If the index
