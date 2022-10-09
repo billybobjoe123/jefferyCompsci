@@ -50,7 +50,9 @@ size_t FibVec::count() const
     return length;
 }
 void FibVec::insert(int val, size_t ind) {
-    grow();
+    if (length+1>size) {
+        grow();
+    }
     
     if (ind > length) {
         throw std::out_of_range("index out of bounds in insert() function");
@@ -72,7 +74,7 @@ int FibVec::lookup(size_t ind) const
     return array[ind];
 }
 int FibVec::pop() {
-    shrink();
+    
     if (length == 0) {
         throw std::underflow_error("underflow error in pop() function");
     }
@@ -83,12 +85,15 @@ int FibVec::pop() {
     return val;
 }
 void FibVec::push(int val) {
+    if (length+1>size) {
+        grow();
+    }
     array[length] = val;
     length++;
-    grow();
+    
 }
 void FibVec::remove(size_t ind) {
-    shrink();
+    
     if (ind > length-1) {
         throw std::out_of_range("index out of bounds in remove() function");
     }
