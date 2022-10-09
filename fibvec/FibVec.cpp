@@ -106,7 +106,7 @@ void FibVec::push(int val) {
     
 }
 int FibVec::remove(size_t ind) {
-    shrink();
+
     if (ind > length-1) {
         throw std::out_of_range("index out of bounds in remove() function");
     }
@@ -120,6 +120,7 @@ int FibVec::remove(size_t ind) {
         shrink();
     }
     else if (ind == length-1) {
+        length--;
         pop();
     }
     else {
