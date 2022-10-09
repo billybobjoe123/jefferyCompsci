@@ -2,7 +2,7 @@
 #include "FibVec.h"
 
 void FibVec::shrink(){
-    if (length < prevprevsize) {
+    if (length <= prevprevsize) {
         int *temp = array;
         array = new int[prevsize];
         for (size_t i = 0;i<length;i++) {
@@ -72,6 +72,9 @@ void FibVec::insert(int val, size_t ind) {
 }
 int FibVec::lookup(size_t ind) const 
 {
+    if (ind>=length) {
+        throw std::out_of_range("index out of bounds in lookup() function");
+    }
     return array[ind];
 }
 int FibVec::pop() {
@@ -98,12 +101,18 @@ void FibVec::remove(size_t ind) {
     if (ind > length-1) {
         throw std::out_of_range("index out of bounds in remove() function");
     }
-    for (size_t i = ind;i<length-1;i++) {
-        array[ind] = array[ind+1];
+    if (length!=0) {
+        for (size_t i = ind;i<length-1;i++) {
+            array[ind] = array[ind+1];
+        }
+        //array[length-1] = NULL;
+        length--;
+        shrink();
     }
-    //array[length-1] = NULL;
-    length--;
-    shrink();
+    else {
+        length--;
+        shrink();
+    }
 }
 
 
