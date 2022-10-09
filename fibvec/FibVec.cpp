@@ -1,5 +1,5 @@
 #include <stdexcept>
-
+#include "FibVec.h"
 class FibVec {
     private:
         int *array;
@@ -47,10 +47,12 @@ class FibVec {
             delete[] array;
         }
 
-        const size_t capacity() {
+        size_t capacity() const 
+        {
             return length;
         }
-        const size_t count() {
+        const size_t count() const 
+        {
             return size;
         }
         void insert(int val, size_t ind) {
@@ -70,7 +72,8 @@ class FibVec {
             array[length] = val;
             length++;
         }
-        const int lookup(size_t ind) {
+        const int lookup(size_t ind) const 
+        {
             return array[ind];
         }
         int pop() {

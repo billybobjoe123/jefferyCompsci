@@ -16,13 +16,13 @@ class FibVec {
         FibVec();
         ~FibVec();
 
-        const size_t capacity();
-        const size_t count();
-        void insert(int val, int ind);
-        const int lookup(int ind);
+        size_t capacity() const; 
+        size_t count() const; 
+        void insert(int val, size_t ind);
+        int lookup(size_t ind) const ;
         int pop();
         void push(int val);
-        void remove(int ind);
+        void remove(size_t ind);
 
 
 };
