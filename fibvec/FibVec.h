@@ -22,7 +22,7 @@ class FibVec {
         int lookup(size_t ind) const ;
         int pop();
         void push(int val);
-        void remove(size_t ind);
+        int remove(size_t ind);
 
 
 };

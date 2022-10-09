@@ -34,6 +34,7 @@ void FibVec::grow(){
 FibVec::FibVec() {
     array = new int[1];
     length = 0;
+    prevprevsize = 1;
     prevsize = 1;
     size = 1;
 }
@@ -104,11 +105,12 @@ void FibVec::push(int val) {
     length++;
     
 }
-void FibVec::remove(size_t ind) {
+int FibVec::remove(size_t ind) {
     
     if (ind > length-1) {
         throw std::out_of_range("index out of bounds in remove() function");
     }
+    int val = array[ind];
     if (length>1) {
         for (size_t i = ind;i<length-1;i++) {
             array[ind] = array[ind+1];
@@ -121,6 +123,7 @@ void FibVec::remove(size_t ind) {
         length--;
         shrink();
     }
+    
 }
 
 
