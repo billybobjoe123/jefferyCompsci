@@ -56,7 +56,7 @@ class FibVec {
         void insert(int val, size_t ind) {
             grow();
             
-            if (ind < 0 || ind > length-1) {
+            if (ind > length-1) {
                 throw std::out_of_range("index out of bounds in insert() function");
             }
             int temp = array[ind];
@@ -90,7 +90,7 @@ class FibVec {
         }
         void remove(size_t ind) {
             
-            if (ind < 0 || ind > length-1) {
+            if (ind > length-1) {
                 throw std::out_of_range("index out of bounds in remove() function");
             }
             for (size_t i = ind;i<length-1;i++) {
