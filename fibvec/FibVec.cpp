@@ -52,7 +52,7 @@ size_t FibVec::count() const
 void FibVec::insert(int val, size_t ind) {
     grow();
     
-    if (ind > length-1) {
+    if (ind > length) {
         throw std::out_of_range("index out of bounds in insert() function");
     }
     int temp = array[ind];
