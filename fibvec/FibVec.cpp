@@ -58,11 +58,14 @@ void FibVec::insert(int val, size_t ind) {
     if (length+1>size) {
         grow();
     }
+    if (ind == length) {
+        array[length] = val;
+        length++;
+        return;
+    }
     if (length !=0) {
-        int temp = array[ind];
-        array[ind] = val;
-        val = temp;
-        for (size_t i = ind+1;i<length;i++) {
+        int temp;
+        for (size_t i = ind;i<length;i++) {
             temp = array[i];
             array[i] = val;
             val = temp;
@@ -72,6 +75,7 @@ void FibVec::insert(int val, size_t ind) {
     }
     else {
         array[0] = val;
+        length++;
     }
 }
 int FibVec::lookup(size_t ind) const 
