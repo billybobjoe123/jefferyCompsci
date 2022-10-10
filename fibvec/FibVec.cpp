@@ -117,6 +117,7 @@ int FibVec::remove(size_t ind) {
         }
         //array[length-1] = NULL;
         length--;
+        shrink();
     }
     if (ind == length-1) {
         length--;
