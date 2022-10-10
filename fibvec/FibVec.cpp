@@ -113,7 +113,7 @@ int FibVec::remove(size_t ind) {
     int val = array[ind];
     if (length>1) {
         for (size_t i = ind;i<length-1;i++) {
-            array[ind] = array[ind+1];
+            array[i] = array[i+1];
         }
         //array[length-1] = NULL;
         
