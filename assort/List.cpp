@@ -46,17 +46,19 @@ size_t List::count() const {
     return 0;
 }
 void List::insert(const std::string& value) {
-    
+
 }
 const std::string& List::lookup(size_t index) const {
-    return "";
+    std::string str = "";
+    return str;
 }
 void List::print(bool reverse = false) const {
 
 }
 
 std::string List::remove(size_t index) {
-    return "";
+    std::string str = "";
+    return str;
 }
 size_t List::remove(const std::string& value) {
     return 0;                                   
