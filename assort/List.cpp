@@ -86,9 +86,6 @@ void List::insert(const std::string& value) {
                 next = curr->next;
             }
         }
-
-
-
     }
 }
 const std::string& List::lookup(size_t index) const {
@@ -148,6 +145,7 @@ void List::print(bool reverse) const {
     }
     else {
         std::cout<<"["<<curr->data;
+        curr = curr->next;
         while (curr!= NULL) {
             std::cout<<", "<<curr->data;
             curr = curr->next;
