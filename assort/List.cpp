@@ -71,6 +71,7 @@ void List::insert(const std::string& value) {
             curr->next = new Node;
             curr->next->data = value;
             curr->next->next = NULL;
+            return;
         }
         else {
             if (curr->data < value && next->data > value) {
