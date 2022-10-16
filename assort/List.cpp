@@ -43,21 +43,21 @@ List::~List() {
     
 }
 size_t List::count() const {
-
+    return 0;
 }
 void List::insert(const std::string& value) {
-
+    
 }
 const std::string& List::lookup(size_t index) const {
-
+    return "";
 }
 void List::print(bool reverse = false) const {
 
 }
 
 std::string List::remove(size_t index) {
-
+    return "";
 }
 size_t List::remove(const std::string& value) {
-
+    return 0;                                   
 }
