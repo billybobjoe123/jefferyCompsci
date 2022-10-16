@@ -152,6 +152,7 @@ void List::print(bool reverse) const {
         }
         std::cout<<"]"<<std::endl;
     }
+    delete[] arr;
     
 }
 
