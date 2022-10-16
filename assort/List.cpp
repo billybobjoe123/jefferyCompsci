@@ -54,7 +54,9 @@ size_t List::count() const {
             break;
         }
         curr = curr->next;
+        cnt++;
     }
+    return cnt;
 }
 void List::insert(const std::string& value) {
     if (head == NULL) {
