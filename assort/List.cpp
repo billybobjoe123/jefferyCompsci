@@ -46,7 +46,15 @@ List::~List() {
     
 }
 size_t List::count() const {
-    return 0;
+    Node* curr = head;
+    int cnt = 0;
+    while (true) {
+        if (curr->next == NULL) {
+            cnt++;
+            break;
+        }
+        curr = curr->next;
+    }
 }
 void List::insert(const std::string& value) {
     if (head == NULL) {
@@ -115,6 +123,9 @@ const std::string& List::lookup(size_t index) const {
 void List::print(bool reverse) const {
     std::string *arr = new std::string[1000];
     Node* curr = head;
+    if (head==NULL) {
+        return;
+    }
     int cnt = 0;
     while (curr->next != NULL) {
         if (cnt+1 == int(sizeof(arr))) {
