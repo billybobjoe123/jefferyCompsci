@@ -120,7 +120,7 @@ void List::print(bool reverse) const {
         if (cnt+1 == int(sizeof(arr))) {
             std::string *temp = arr;
             arr = new std::string[sizeof(arr)*2];
-            for(int i = 0; i<sizeof(temp);i++) {
+            for(int i = 0; i<int(sizeof(temp));i++) {
                 arr[i] = temp[i];
             }
         }
