@@ -124,20 +124,20 @@ void List::print(bool reverse) const {
     if (reverse) {
         int cnt = 0;
         while (curr->next != NULL) {
-        if (curr == NULL) {
-            break;
-        }
-        if (cnt+1 == int(sizeof(arr))) {
-            std::string *temp = arr;
-            arr = new std::string[sizeof(arr)*2];
-            for(int i = 0; i<int(sizeof(temp));i++) {
-                arr[i] = temp[i];
+            if (curr == NULL) {
+                break;
             }
-            delete[] temp;
-        }
-        arr[cnt] = curr->data;
-        curr = curr->next;
-        cnt++;
+            if (cnt+1 == int(sizeof(arr))) {
+                std::string *temp = arr;
+                arr = new std::string[sizeof(arr)*2];
+                for(int i = 0; i<int(sizeof(temp));i++) {
+                    arr[i] = temp[i];
+                }
+                delete[] temp;
+            }
+            arr[cnt] = curr->data;
+            curr = curr->next;
+            cnt++;
         }
         std::cout<<"["<<arr[cnt];
         for (int i = cnt-1; i>=0;i--) {
