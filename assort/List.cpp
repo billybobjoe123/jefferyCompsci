@@ -6,7 +6,10 @@ List::List() {
 } 
 List::List(const List& other) {//copy
 
-    Node* current = new Node;
+    Node* current = head;
+    if (head == NULL) {
+        head = new Node;
+    }
     current->data = other.head->data;
     Node* otherCurr = other.head;
     while(true) {
@@ -15,10 +18,10 @@ List::List(const List& other) {//copy
             current->next = NULL;
         }
         if (otherCurr->next == NULL && current->next!= NULL) {
-            Node* tempcur = current->next;
-            Node* tempNext = tempcur->next;
-            current->next = NULL;
-            while (true) {
+                Node* tempcur = current->next;
+                Node* tempNext = tempcur->next;
+                current->next = NULL;
+                while (true) {
                 delete tempcur;
                 tempcur = NULL;
                 if (tempNext == NULL) {
