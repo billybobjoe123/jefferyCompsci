@@ -123,6 +123,9 @@ void List::print(bool reverse) const {
     }
     int cnt = 0;
     while (curr->next != NULL) {
+        if (curr == NULL) {
+            break;
+        }
         if (cnt+1 == int(sizeof(arr))) {
             std::string *temp = arr;
             arr = new std::string[sizeof(arr)*2];
