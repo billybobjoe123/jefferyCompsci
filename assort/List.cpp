@@ -117,6 +117,7 @@ void List::print(bool reverse) const {
     std::string *arr = new std::string[1000];
     Node* curr = head;
     if (head==NULL) {
+        delete[] arr;
         return;
     }
     
