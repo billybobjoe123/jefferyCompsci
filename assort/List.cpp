@@ -132,6 +132,7 @@ void List::print(bool reverse) const {
             for(int i = 0; i<int(sizeof(temp));i++) {
                 arr[i] = temp[i];
             }
+            delete[] temp;
         }
         arr[cnt] = curr->data;
         curr = curr->next;
