@@ -35,16 +35,16 @@ List::~List() {
     if (head == NULL) {
         return;
     }
-    Node *temp = head->next;
     while (true) {
+        Node *temp = head->next;
         if (temp == NULL) {
             delete head;
             head = NULL;
-            return;
+            break;
         }
-        temp = head->next;
-        delete head;
-        head = temp;
+        head = head->next;
+        delete temp;
+        temp = NULL;
     }
 }
 size_t List::count() const {
