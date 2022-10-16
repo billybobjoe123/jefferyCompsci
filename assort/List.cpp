@@ -32,7 +32,11 @@ List::List(List&& other) {//move
     other.head = NULL;
 }
 List::~List() {
-    
+    while (head != NULL) {
+        Node* temp = head->next;
+        delete head;
+        head = temp;
+    }
 }
 size_t List::count() const {
     
