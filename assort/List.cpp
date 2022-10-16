@@ -5,11 +5,13 @@ List::List() {
     head = NULL;
 } 
 List::List(const List& other) {//copy
-
-    Node* current = head;
+    if(other.head==NULL) {
+        return;
+    }
     if (head == NULL) {
         head = new Node;
     }
+    Node* current = head;
     current->data = other.head->data;
     Node* otherCurr = other.head;
     while(true) {
@@ -17,7 +19,7 @@ List::List(const List& other) {//copy
             current = new Node;
             current->next = NULL;
         }
-        if (otherCurr->next == NULL && current->next!= NULL) {
+        if (otherCurr->next == NULL && current->next != NULL) {
                 Node* tempcur = current->next;
                 Node* tempNext = tempcur->next;
                 current->next = NULL;
