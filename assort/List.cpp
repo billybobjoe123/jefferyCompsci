@@ -5,42 +5,22 @@ List::List() {
     head = NULL;
 } 
 List::List(const List& other) {//copy
-    if(other.head==NULL) {
+    head = NULL;
+    Node* curr = head;
+    Node* otherCurr = other.head;
+    if (other.head == NULL) {
         return;
     }
-    if (head == NULL) {
-        head = new Node;
-    }
-    Node* current = head;
-    current->data = other.head->data;
-    Node* otherCurr = other.head;
-    while(true) {
-        if (current == NULL) {
-            current = new Node;
-            current->next = NULL;
+    head = new Node;
+    head->next = NULL;
+    while (true) {
+        if (curr->next == NULL && otherCurr->next != NULL) {
+            curr->next = new Node;
+            curr->next->next = NULL;
         }
-        if (otherCurr->next == NULL && current->next != NULL) {
-                Node* tempcur = current->next;
-                Node* tempNext = tempcur->next;
-                current->next = NULL;
-                while (true) {
-                delete tempcur;
-                tempcur = NULL;
-                if (tempNext == NULL) {
-                    break;
-                }
-                tempcur = tempNext;
-                tempNext = tempNext->next;
-            }
-        }
-        if (otherCurr == NULL) {
-            break;
-        }
-        current->data = otherCurr->data;
-        current = current->next;
+        curr->data = otherCurr->data;
+        curr = curr->next;
         otherCurr = otherCurr->next;
-        
-
     }
 }
 List::List(List&& other) {//move
