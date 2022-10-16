@@ -36,8 +36,12 @@ List::~List() {
         return;
     }
     Node *temp = head->next;
-    while (head != NULL) {
-        
+    while (true) {
+        if (temp == NULL) {
+            delete head;
+            head = NULL;
+            return;
+        }
         temp = head->next;
         delete head;
         head = temp;
