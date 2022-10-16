@@ -32,12 +32,12 @@ List::List(List&& other) {//move
     other.head = NULL;
 }
 List::~List() {
-    Node* temp = head->next;
-    while (true) {
-        if (temp == NULL) {
-            delete head;
-            break;
-        }
+    if (head == NULL) {
+        return;
+    }
+    Node *temp = head->next;
+    while (head != NULL) {
+        
         temp = head->next;
         delete head;
         head = temp;
