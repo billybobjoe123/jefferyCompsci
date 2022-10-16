@@ -14,10 +14,14 @@ List::List(const List& other) {//copy
     head = new Node;
     head->next = NULL;
     while (true) {
+        if (otherCurr == NULL) {
+            break;
+        }
         if (curr->next == NULL && otherCurr->next != NULL) {
             curr->next = new Node;
             curr->next->next = NULL;
         }
+        
         curr->data = otherCurr->data;
         curr = curr->next;
         otherCurr = otherCurr->next;
