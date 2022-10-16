@@ -6,7 +6,8 @@ List::List() {
 } 
 List::List(const List& other) {//copy
 
-    Node* current = head;
+    Node* current = new Node;
+    current->data = other.head->data;
     Node* otherCurr = other.head;
     while(true) {
         if (current == NULL) {
@@ -116,7 +117,7 @@ void List::print(bool reverse) const {
     Node* curr = head;
     int cnt = 0;
     while (curr->next != NULL) {
-        if (cnt+1 == sizeof(arr)) {
+        if (cnt+1 == int(sizeof(arr))) {
             std::string *temp = arr;
             arr = new std::string[sizeof(arr)*2];
             for(int i = 0; i<sizeof(temp);i++) {
