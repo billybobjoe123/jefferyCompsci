@@ -47,6 +47,9 @@ List::~List() {
 }
 size_t List::count() const {
     Node* curr = head;
+    if (head == NULL) {
+        return 0;
+    }
     int cnt = 0;
     while (true) {
         if (curr->next == NULL) {
