@@ -103,7 +103,9 @@ const std::string& List::lookup(size_t index) const {
         throw std::out_of_range("out of range in lookup");
     }
     Node* next = curr->next;
-
+    if (index == 0) {
+        return head->data;
+    }
     size_t count = 0;
     while (true) {
         if (count == index-1) {
