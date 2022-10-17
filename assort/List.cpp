@@ -159,7 +159,7 @@ void List::print(bool reverse) const {
     else {
         std::cout<<"["<<arr[0];
         
-        for(int i = 1; i<=cnt;i++) {
+        for(int i = 1; i<=cnt+1;i++) {
             std::cout<<", "<<arr[i];
         }
         std::cout<<"]"<<std::endl;
