@@ -244,6 +244,9 @@ size_t List::remove(const std::string& value) {
         if(curr!=NULL) { 
             next = next->next;
         }
+        else {
+            break;
+        }
     }
     return count;                
 }
