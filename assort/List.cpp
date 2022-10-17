@@ -127,6 +127,7 @@ void List::print(bool reverse) const {
     Node* curr = head;
     if (head==NULL) {
         delete[] arr;
+        std::cout<<"[]"<< std::endl;
         return;
     }
     
