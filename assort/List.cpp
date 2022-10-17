@@ -214,33 +214,34 @@ std::string List::remove(size_t index) {
 size_t List::remove(const std::string& value) {
     Node* curr = head;
     if (curr == NULL) {
-        return 0;
+        throw std::out_of_range("out of range in remove");
     }
     Node* next = curr->next;
 
     size_t count = 0;
     if (curr->data == value) {
-        Node* temp = curr;
-        curr = curr->next;
+        Node* temp = head;
+        std::string str = head->data;
+        head = head->next;
         delete temp;
+        temp = NULL;
         count++;
     }
-    if (curr == NULL) {
-        return count;
-    }
-    next = curr->next;
-    while (next != NULL) {
+    while (true) {
+        if (next == NULL) {
+            break;
+        }
         if (next->data == value) {
-
+            
+            std::string value = next->data;
             curr->next = next->next;
             delete next;
-            next = curr->next;
+            next = NULL;
             count++;
         }
-        curr = curr->next;
-        if (next != NULL) {
-            next = next->next;
-        }
-    }     
-    return count;                        
+        
+        curr = next;
+        next = next->next;
+    }
+    return count;                
 }
