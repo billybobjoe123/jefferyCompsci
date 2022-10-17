@@ -37,15 +37,14 @@ List::~List() {
     }
     while (true) {
         Node *temp = head->next;
-        if (temp == NULL) {
-            delete head;
-            head = NULL;
-            break;
+        if (head->next != NULL) {
+            head = head->next;
         }
-        head = head->next;
         delete temp;
         temp = NULL;
+        
     }
+    head = NULL;
 }
 size_t List::count() const {
     
