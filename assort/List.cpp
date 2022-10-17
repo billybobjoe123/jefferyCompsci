@@ -129,38 +129,37 @@ void List::print(bool reverse) const {
         delete[] arr;
         return;
     }
-    int cnt = 0;
-    while (curr->next != NULL) {
-        if (curr == NULL) {
-            break;
-        }
-        if (cnt+1 == int(sizeof(arr))) {
-            std::string *temp = arr;
-            arr = new std::string[sizeof(arr)*2];
-            for(int i = 0; i<int(sizeof(temp));i++) {
-                arr[i] = temp[i];
-            }
-            delete[] temp;
-        }
-        arr[cnt] = curr->data;
-        curr = curr->next;
-        cnt++;
-    }
+    
     if (reverse) {
-        
-        
-        
-        std::cout<<"["<<arr[cnt];
-        for (int i = cnt-1; i>=0;i--) {
+        int cnt = 0;
+        while (curr->next != NULL) {
+            if (curr == NULL) {
+                break;
+            }
+            if (cnt+1 == int(sizeof(arr))) {
+                std::string *temp = arr;
+                arr = new std::string[sizeof(arr)*2];
+                for(int i = 0; i<int(sizeof(temp));i++) {
+                    arr[i] = temp[i];
+                }
+                delete[] temp;
+            }
+            arr[cnt] = curr->data;
+            curr = curr->next;
+            cnt++;
+        }
+        std::cout<<"["<<arr[cnt+1];
+        for (int i = cnt; i>=0;i--) {
             std::cout<<", "<<arr[i];
         }
         std::cout<<"]"<<std::endl;
     }
     else {
-        std::cout<<"["<<arr[0];
-        
-        for(int i = 1; i<=cnt+1;i++) {
-            std::cout<<", "<<arr[i];
+        std::cout<<"["<<curr->data;
+        curr = curr->next;
+        while (curr != NULL) {
+            std::cout<<", "<<curr->data;
+            curr = curr->next;
         }
         std::cout<<"]"<<std::endl;
     }
