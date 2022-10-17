@@ -224,7 +224,9 @@ size_t List::remove(const std::string& value) {
         if (curr->data == value) {
             Node* temp = curr;
             curr = next;
-            next = next->next;
+            if (next != NULL) {
+                next = next->next;
+            }
             delete temp;
             count++;
         }
