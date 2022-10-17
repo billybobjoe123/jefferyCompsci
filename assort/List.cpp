@@ -39,9 +39,14 @@ List::~List() {
         Node *temp = head->next;
         if (head->next != NULL) {
             head = head->next;
+            delete temp;
+            temp = NULL;
         }
-        delete temp;
-        temp = NULL;
+        else {
+            delete temp;
+            temp = NULL;
+            break;
+        }
         
     }
     head = NULL;
