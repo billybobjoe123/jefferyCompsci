@@ -221,7 +221,7 @@ size_t List::remove(const std::string& value) {
     size_t count = 0;
     while (true) {
         if(next==NULL) {
-            return;
+            return count;
         }
         
         if (next->data == value) {
