@@ -188,6 +188,7 @@ std::string List::remove(size_t index) {
         head = head->next;
         delete temp;
         temp = NULL;
+        return str;
     }
     while (true) {
         if (count == index-1) {
