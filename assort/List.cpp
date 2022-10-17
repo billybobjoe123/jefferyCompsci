@@ -220,15 +220,15 @@ size_t List::remove(const std::string& value) {
 
     size_t count = 0;
     while (true) {
+        
+        if (curr->data == value) {
+            Node* temp = curr;
+            curr->next = next;
+            next = next->next;
+            count++;
+        }
         if (next==NULL) {
             break;
-        }
-        else{
-            std::string value = next->data;
-            curr->next = next->next;
-            delete next;
-            next = NULL;
-            count++;
         }
         curr = next;
         next = next->next;
