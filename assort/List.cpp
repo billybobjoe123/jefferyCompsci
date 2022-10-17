@@ -217,7 +217,6 @@ size_t List::remove(const std::string& value) {
         throw std::out_of_range("out of range in remove");
     }
     Node* next = curr->next;
-
     size_t count = 0;
     if (curr->data == value) {
         Node* temp = head;
@@ -232,7 +231,6 @@ size_t List::remove(const std::string& value) {
             break;
         }
         if (next->data == value) {
-            
             std::string value = next->data;
             curr->next = next->next;
             delete next;
