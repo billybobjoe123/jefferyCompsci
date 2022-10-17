@@ -181,6 +181,13 @@ std::string List::remove(size_t index) {
     Node* next = curr->next;
 
     size_t count = 0;
+    if (index == 0) {
+        Node* temp = head;
+        std::string str = head->data;
+        head = head->next;
+        delete temp;
+        temp = NULL;
+    }
     while (true) {
         if (count == index-1) {
             if (next==NULL) {
