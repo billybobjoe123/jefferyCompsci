@@ -219,7 +219,7 @@ size_t List::remove(const std::string& value) {
     Node* next = curr->next;
 
     size_t count = 0;
-    while (true) {
+    while (next!=NULL) {
         
         if (curr->data == value) {
             Node* temp = curr;
@@ -229,9 +229,6 @@ size_t List::remove(const std::string& value) {
             }
             delete temp;
             count++;
-        }
-        if (next==NULL) {
-            break;
         }
         curr = next;
         next = next->next;
