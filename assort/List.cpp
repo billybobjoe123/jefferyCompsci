@@ -7,6 +7,7 @@ List::List() {
 List::List(const List& other) {//copy
     
     if (other.head == NULL) {
+        head = NULL;
         return;
     }
     head = new Node;
