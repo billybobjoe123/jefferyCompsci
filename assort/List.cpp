@@ -40,11 +40,12 @@ List::~List() {
         if (head->next != NULL) {
             head = head->next;
             delete temp;
-            temp = NULL;
         }
         else {
+
             delete temp;
-            temp = NULL;
+            delete head;
+            head = NULL;
             break;
         }
         
