@@ -131,6 +131,7 @@ void List::print(bool reverse) const {
     }
     
     if (!reverse) {
+        curr = head;
         std::cout<<"["<<curr->data;
         curr = curr->next;
         while (curr != NULL) {
@@ -141,6 +142,7 @@ void List::print(bool reverse) const {
     }
     else {
         int cnt = 0;
+        curr = head;
         while (curr->next != NULL) {
             if (curr == NULL) {
                 break;
