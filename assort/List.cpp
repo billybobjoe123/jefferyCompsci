@@ -55,13 +55,14 @@ size_t List::count() const {
         }
         curr = curr->next;
         cnt++;
-    }
+    }                  
     return cnt;
 }
 void List::insert(const std::string& value) {
     if (head == NULL) {
         head = new Node;
         head->data = value;
+        head->next = NULL;
         return;
     }
     if (value < head->data) {
@@ -69,6 +70,7 @@ void List::insert(const std::string& value) {
         head = new Node;
         head->next = temp;
         head->data = value;
+        temp = NULL;
         return;
     }
     Node* curr = head;
