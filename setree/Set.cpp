@@ -1,4 +1,5 @@
 #include "Set.h"
+#include "Node.h"
 #include <stdexcept>
 #include <iostream>
 
