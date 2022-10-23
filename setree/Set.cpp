@@ -81,11 +81,11 @@ size_t Set::insert(const std::string& Value) {
     }
     return 0;
 }
-Node* lookupLeftSize(Node* ptr, size_t n) {
+Node* lookupSize(Node* ptr, size_t n) {
     if (!ptr) {
         return nullptr;
     }
-    if (ptr->leftsize(ptr) == n) {
+    if (ptr->size(ptr) == n) {
         return ptr;
     }
 
@@ -98,7 +98,6 @@ Node* lookupLeftSize(Node* ptr, size_t n) {
         return temp2;
     }
     return nullptr;
-    
 }
 
 const std::string& Set::lookup(size_t n) const {

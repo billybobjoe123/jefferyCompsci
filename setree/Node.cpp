@@ -29,9 +29,5 @@ size_t Node::clean(Node* n) {
     delete n;
     return cnt;
 }
-size_t Node::leftsize(const Node* n) {
-    if (!n)
-        return 0;
-    return 1 + Node::size(n->left);
-}
+
 

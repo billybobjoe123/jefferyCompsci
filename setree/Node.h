@@ -17,7 +17,7 @@ class Node
     
     size_t size(const Node* n);
     size_t clean(Node* n);
-    size_t leftsize(const Node* n);
+
 
 
 };
