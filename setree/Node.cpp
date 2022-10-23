@@ -20,16 +20,7 @@ size_t Node::size(const Node* n) {
    return 1 + Node::size(n->left) + Node::size(n->right);
 }
 
-static Node* copy(Node* other) {
-    if(!other) {
-        return nullptr;
-    }
-    Node* node = new Node(other->data);
-    node->sub = other->sub;
-    node->left = copy(other->left);
-    node->right = copy(other->right);
-    return node;
-}
+
 size_t Node::clean(Node* n) {
     if (!n) {
         return 0;

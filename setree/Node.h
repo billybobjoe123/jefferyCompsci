@@ -14,7 +14,7 @@ class Node
     size_t sub;
     Node(std::string str);
     Node(std::string str, Node* L, Node* R, size_t s);
-    static Node* copy(Node* other);
+    
     size_t size(const Node* n);
     size_t clean(Node* n);
     size_t leftsize(const Node* n);

@@ -6,8 +6,19 @@
 Set::Set() {
     this->mRoot = nullptr;
 }
+Node* copy(Node* other) {
+    if(!other) {
+        return nullptr;
+    }
+    Node* node = new Node(other->data);
+    node->sub = other->sub;
+    node->left = copy(other->left);
+    node->right = copy(other->right);
+    return node;
+}
+
 Set::Set(const Set& other) {
-    this->mRoot = Node::copy(other.mRoot);
+    this->mRoot = copy(other.mRoot);
 }
 
 Set::Set(Set&& other) {
