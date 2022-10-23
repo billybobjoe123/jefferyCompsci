@@ -89,8 +89,8 @@ Node* lookupSize(Node* ptr, size_t n) {
         return ptr;
     }
 
-    Node* temp1 = lookupLeftSize(ptr->left,n);
-    Node* temp2 = lookupLeftSize(ptr->right,n);
+    Node* temp1 = lookupSize(ptr->left,n);
+    Node* temp2 = lookupSize(ptr->right,n);
     if (temp1) {
         return temp1;
     }
