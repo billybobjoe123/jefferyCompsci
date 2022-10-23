@@ -134,8 +134,10 @@ std::string printNodes(Node* ptr) {
 }
 
 void Set::print() const{
-    if(this->mRoot)
+    if(this->mRoot) {
+        std::cout<<std::endl;
         std::cout<<printNodes(mRoot)<<std::endl;
+    }
     else {
         std::cout<<""<<std::endl;
     }
