@@ -121,7 +121,7 @@ std::string printNodes(Node* ptr) {
         return ptr->data;
     }
     else {
-        std::string str = "(" + printNodes(ptr->left) + ptr->data + printNodes(ptr->right) + ")";
+        std::string str = "(" + printNodes(ptr->left) + " " + ptr->data + " " + printNodes(ptr->right) + ")";
         return str;
     }
 
