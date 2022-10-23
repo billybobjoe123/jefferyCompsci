@@ -1,4 +1,5 @@
 #include "Set.h"
+#include "Node.h"
 #include <iostream>
 
 // Use this file to test your Set class.
@@ -6,8 +7,10 @@
 
 int main() {
   Set set;
-
-  std::cout << "This program doesn't do anything interesting yet...\n";
-
+  set.insert("g");
+  set.insert("b");
+  set.insert("a");
+  set.insert("c");
+  set.print();
   return 0;
 }

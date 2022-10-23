@@ -84,8 +84,7 @@ size_t Set::insert(const std::string& Value) {
             ptr = ptr->right;
         }
     }
-    return 1;
-
+    return 0;
 }
 Node* lookupLeftSize(Node* ptr, size_t n) {
     if (!ptr) {
