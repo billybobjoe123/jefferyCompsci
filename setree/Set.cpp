@@ -72,6 +72,8 @@ size_t Set::insert(const std::string& Value) {
             ptr = ptr->right;
         }
     }
+    return 1;
+
 }
 Node* lookupLeftSize(Node* ptr, size_t n) {
     if (!ptr) {
@@ -102,8 +104,9 @@ const std::string& Set::lookup(size_t n) const {
     if (!ptr) {
         throw std::out_of_range("out of range in lookup()");
     }
+    return ptr->data;
 }
-std::string& printNodes(Node* ptr) {
+std::string printNodes(Node* ptr) {
     if (!ptr) {
         std::string str = "-";
         return str;
@@ -148,12 +151,12 @@ Node* deleteNode(Node* node, std::string Value) {
                 return node->right;
             }
             removal++;                                                      
-            Node* temp = node->right;                        
-            while(!temp->left) {
-                temp = temp->left;     
+            Node* temp = node->left;                        
+            while(!temp->right) {
+                temp = temp->right;     
             }
             node->data = temp->data;                            
-            node->right = deleteNode(node->right, temp->data);  
+            node->left = deleteNode(node->left, temp->data);  
         }
     }
     return node;
