@@ -35,7 +35,7 @@ size_t Set::clear() {
 
 bool Set::contains(const std::string& value) const {
     Node* ptr = this->mRoot;
-    while(!ptr) {
+    while(ptr) {
         if (ptr->data == value) {
             return true;
         }
@@ -56,20 +56,17 @@ void Set::debug() {}
 size_t Set::insert(const std::string& Value) {
     if (!this->mRoot) {
         mRoot = new Node(Value);
-        mRoot->left = nullptr;
-        mRoot->right = nullptr;
         return 1;
     }
     Node* ptr = this->mRoot;
-    while(!ptr) {
+    while(ptr) {
         if (ptr->data == Value) {
             return 0;
         }
         if (ptr->data > Value) {
             if (!ptr->left) {
                 ptr->left = new Node(Value);
-                ptr->left->left = nullptr;
-                ptr->left->right = nullptr;
+
                 return 1;
             }
             ptr = ptr->left;
@@ -77,8 +74,6 @@ size_t Set::insert(const std::string& Value) {
         else {
             if (!ptr->right) {
                 ptr->right = new Node(Value);
-                ptr->right->left = nullptr;
-                ptr->right->right = nullptr;
                 return 1;
             }
             ptr = ptr->right;
