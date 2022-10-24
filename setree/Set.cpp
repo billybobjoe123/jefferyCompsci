@@ -119,6 +119,9 @@ const std::string& Set::lookup(size_t n) const {
     size_t size = mRoot->size(mRoot);
     std::string arr[size];
     FlattenTreeIntoArray(mRoot,arr,0);
+    if (n>size-1) {
+        throw std::out_of_range("out of range in lookup");
+    }
     str = arr[n];
     return str;
 }
