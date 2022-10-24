@@ -99,7 +99,8 @@ const std::string& Set::lookup(size_t n) const {
         throw std::out_of_range("out of range in lookup()");
     }
     Node* ptr = this->mRoot;
-    std::string str = lookupSize(ptr,n);
+
+    std::string str = std::string(lookupSize(ptr,n));
     if (str == "") {
         throw std::out_of_range("out of range in lookup()");
     }
