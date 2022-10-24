@@ -100,11 +100,11 @@ const std::string& Set::lookup(size_t n) const {
     }
     Node* ptr = this->mRoot;
 
-    ptr = reinterpret_cast<Node*>(lookupSize(ptr,n));
-    if (!ptr) {
+    Node* pointer = reinterpret_cast<Node*>(lookupSize(ptr,n));
+    if (!pointer) {
         throw std::out_of_range("out of range in lookup()");
     }
-    return ptr->data;
+    return pointer->data;
 }
 std::string printNodes(Node* ptr) {
     if (!ptr) {                   //null
