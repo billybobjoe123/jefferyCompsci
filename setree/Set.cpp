@@ -86,7 +86,7 @@ std::string lookupSize(Node* ptr, size_t n) {
     if (!ptr) {
         return "";
     }
-    if (ptr->size(ptr) == n) {
+    if (ptr->left->size(ptr) == n) {
         return ptr->data;
     }
 
