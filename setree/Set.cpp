@@ -122,8 +122,8 @@ std::string str;
 const std::string& Set::lookup(size_t n) const {
     size_t size = mRoot->size(mRoot);
     std::string arr[size];
-    FlattenTreeIntoArray(mRoot,arr,0);
-    if (n>=size) {
+    int i = FlattenTreeIntoArray(mRoot,arr,0);
+    if (n>i) {
         throw std::out_of_range("out of range in lookup");
     }
     str = arr[n];
@@ -182,12 +182,15 @@ Node* deleteNode(Node* node, std::string Value) {
                 return temp;
             }
 
-            Node* temp = node->left;                        
-            while(!temp->right && !temp) {
+            Node* temp = node->left;
+            Node* pretemp = node;                        
+            while(!temp->right && !temp) {\
+                pretemp = temp;
                 temp = temp->right;     
             }
             node->data = temp->data;
             delete temp;
+            pretemp->right = nullptr;
             removed++;                            
             return node;
         }
