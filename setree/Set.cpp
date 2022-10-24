@@ -92,10 +92,14 @@ std::string lookupSize(Node* ptr, size_t n) {
 
     std::string temp1 = lookupSize(ptr->left,n);
     std::string temp2 = lookupSize(ptr->right,n);
-    return temp1 + temp2;;
+    if (temp1 != "" && temp2!="") {
+        return temp1;
+    }
+    return temp1 + temp2;
 }
 std::string str;
 const std::string& Set::lookup(size_t n) const {
+    str = "";
     if (!this->mRoot) {
         throw std::out_of_range("out of range in lookup()");
     }
@@ -105,7 +109,6 @@ const std::string& Set::lookup(size_t n) const {
     if (str == "") {
         throw std::out_of_range("out of range in lookup()");
     }
-
     return str;
 }
 std::string printNodes(Node* ptr) {
