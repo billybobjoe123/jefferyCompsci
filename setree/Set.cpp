@@ -196,6 +196,8 @@ Node* deleteNode(Node* node, std::string Value) {
 size_t Set::remove(const std::string& value) {
     removed = 0;
     this->mRoot = deleteNode(mRoot, value);
-    return removed;
+    if (removed>0)
+        return 1;
+    return 0;
 }
 
