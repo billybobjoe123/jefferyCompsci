@@ -205,6 +205,9 @@ Node* deleteNode(Node* node, std::string Value) {
 
 size_t Set::remove(const std::string& value) {
     removed = 0;
+    if (!contains(value)) {
+        return 0;
+    }
     if (!mRoot) {
         return 0;
     }
