@@ -30,7 +30,11 @@ Set::~Set() {
 }
 
 size_t Set::clear() {
-    return this->mRoot->clean(mRoot);
+    size_t cnt =mRoot->size(mRoot);
+    this->mRoot->clean(mRoot);
+    mRoot = nullptr;
+    return cnt;
+    
 }
 
 bool Set::contains(const std::string& value) const {
