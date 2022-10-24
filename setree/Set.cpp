@@ -100,9 +100,6 @@ std::string lookupSize(Node* ptr, size_t n) {
 std::string str;
 const std::string& Set::lookup(size_t n) const {
     str = "";
-    if (!this->mRoot) {
-        throw std::out_of_range("out of range in lookup()");
-    }
     Node* ptr = this->mRoot;
 
     str = std::string(lookupSize(ptr,n));
