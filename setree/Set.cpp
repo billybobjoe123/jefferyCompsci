@@ -189,8 +189,13 @@ Node* deleteNode(Node* node, std::string Value) {
                 temp = temp->right;     
             }
             node->data = temp->data;
+            if (temp->left) {
+                prev->right = temp->left;
+            }
+            else {
+                prev->right = nullptr;
+            }
             delete temp;
-            prev->right = nullptr;
             removed++;                            
             return node;
         }
