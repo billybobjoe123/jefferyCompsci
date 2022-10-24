@@ -209,7 +209,8 @@ size_t Set::remove(const std::string& value) {
     if (!mRoot) {
         return 0;
     }
-    if (!contains(value)) {
+    std::string val = value;
+    if (contains(val)) {
         return 0;
     }
     if (mRoot->data == value) {
