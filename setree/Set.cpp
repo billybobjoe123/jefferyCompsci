@@ -82,16 +82,16 @@ size_t Set::insert(const std::string& Value) {
     return 0;
 }
 
-std::string lookupSize(Node* ptr, size_t n) {
+std::string lookupSize(Node* ptr, Node* mR,size_t n) {
     if (!ptr) {
         return "";
     }
-    if (ptr->countless(ptr->left,ptr->data) == n) {
+    if (ptr->countless(mR,ptr->data) == n) {
         return ptr->data;
     }
 
-    std::string temp1 = lookupSize(ptr->left,n);
-    std::string temp2 = lookupSize(ptr->right,n);
+    std::string temp1 = lookupSize(ptr->left,mR,n);
+    std::string temp2 = lookupSize(ptr->right,mR,n);
     if (temp1 != "" && temp2!="") {
         return temp1;
     }
@@ -102,7 +102,7 @@ const std::string& Set::lookup(size_t n) const {
     str = "";
     Node* ptr = this->mRoot;
 
-    str = std::string(lookupSize(ptr,n));
+    str = std::string(lookupSize(ptr,this->mRoot,n));
     if (str == "") {
         throw std::out_of_range("out of range in lookup()");
     }

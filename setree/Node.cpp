@@ -38,7 +38,7 @@ size_t Node::countless(Node* root, std::string data) const {
 
             cnt += countless(tmp->right, data);
         } else {
-            cnt += countless(tmp->left, data);
+            cnt += 1 + countless(tmp->left, data);
         }
     }
     return cnt;
