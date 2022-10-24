@@ -114,12 +114,13 @@ int FlattenTreeIntoArray(Node* tree, std::string* array, int i){
 } 
 
 
-
+std::string str;
 const std::string& Set::lookup(size_t n) const {
     size_t size = mRoot->size(mRoot);
     std::string arr[size];
     FlattenTreeIntoArray(mRoot,arr,0);
-    return arr[n];
+    str = arr[n];
+    return str;
 }
 std::string printNodes(Node* ptr) {
     if (!ptr) {                   //null
