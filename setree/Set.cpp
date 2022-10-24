@@ -105,7 +105,7 @@ std::string lookupSize(Node* ptr, Node* mR,size_t n) {
 }
 **/
 
-size_t FlattenTreeIntoArray(Node* tree, std::string* array, int i){
+int FlattenTreeIntoArray(Node* tree, std::string* array, int i){
     if (!tree) 
         return i;
     
@@ -123,7 +123,7 @@ const std::string& Set::lookup(size_t n) const {
     size_t size = mRoot->size(mRoot);
     std::string arr[size];
     FlattenTreeIntoArray(mRoot,arr,0);
-    if (n>size-1) {
+    if (n>=size) {
         throw std::out_of_range("out of range in lookup");
     }
     str = arr[n];
@@ -183,14 +183,14 @@ Node* deleteNode(Node* node, std::string Value) {
             }
 
             Node* temp = node->left;
-            Node* pretemp = node;                        
-            while(!temp->right && !temp) {\
-                pretemp = temp;
+            Node* prev = node;                        
+            while(!temp->right && !temp) {
+                prev = temp;
                 temp = temp->right;     
             }
             node->data = temp->data;
             delete temp;
-            pretemp->right = nullptr;
+            prev->right = nullptr;
             removed++;                            
             return node;
         }
@@ -228,4 +228,3 @@ size_t Set::remove(const std::string& value) {
         return 1;
     return 0;
 }
-
