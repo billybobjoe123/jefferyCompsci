@@ -25,9 +25,7 @@ Set::Set(Set&& other) {
     this->mRoot = other.mRoot;
     other.mRoot = nullptr;
 }
-Set::~Set() {
-    mRoot->clean(mRoot);
-}
+Set::~Set() { this ->clear();}
 
 size_t Set::clear() {
     size_t cnt =mRoot->size(mRoot);
