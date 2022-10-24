@@ -81,6 +81,7 @@ size_t Set::insert(const std::string& Value) {
     }
     return 0;
 }
+/**
 Node* n1;
 std::string lookupSize(Node* ptr, Node* mR,size_t n) {
     if (!ptr) {
@@ -98,16 +99,27 @@ std::string lookupSize(Node* ptr, Node* mR,size_t n) {
     }
     return temp1 + temp2;
 }
-std::string str;
-const std::string& Set::lookup(size_t n) const {
-    str = "";
-    Node* ptr = this->mRoot;
+**/
 
-    str = std::string(lookupSize(ptr,this->mRoot,n));
-   
-    if (n1)
-        return n1->data;
-    throw std::out_of_range("out of range in lookup()");
+int FlattenTreeIntoArray(Node* tree, std::string* array, int i){
+    if (!tree) 
+        return i;
+    
+    i = FlattenTreeIntoArray(tree->left, array, i);
+    
+    array[i] = tree->data;
+    
+    i = FlattenTreeIntoArray(tree->right, array, i + 1);
+    return i;
+} 
+
+
+
+const std::string& Set::lookup(size_t n) const {
+    size_t size = mRoot->size(mRoot);
+    std::string arr[size];
+    FlattenTreeIntoArray(mRoot,arr,0);
+    return arr[n];
 }
 std::string printNodes(Node* ptr) {
     if (!ptr) {                   //null
