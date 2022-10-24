@@ -173,10 +173,12 @@ Node* deleteNode(Node* node, std::string Value) {
                 if (node->left) {
                     Node* temp = node->left;
                     delete node;
+                    removed++;
                     return temp;
                 }
                 Node* temp = node->right;
                 delete node;
+                removed++;
                 return temp;
             }
 
@@ -195,6 +197,29 @@ Node* deleteNode(Node* node, std::string Value) {
 
 size_t Set::remove(const std::string& value) {
     removed = 0;
+    if (!mRoot) {
+        return 0;
+    }
+    if (mRoot->data == value) {
+        if(!mRoot->left && !mRoot->right) {
+            delete mRoot;
+            mRoot = nullptr;
+            return 1;
+        }
+        if (!mRoot->left) {
+            Node* temp = mRoot;
+            mRoot = mRoot->right;
+            delete temp;
+            return 1;
+        }
+        if (!mRoot->right) {
+            Node* temp = mRoot;
+            mRoot = mRoot->left;
+            delete temp;
+            return 1;
+        }
+    }
+
     this->mRoot = deleteNode(mRoot, value);
     if (removed>0)
         return 1;
