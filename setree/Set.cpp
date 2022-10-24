@@ -81,16 +81,16 @@ size_t Set::insert(const std::string& Value) {
     }
     return 0;
 }
-std::string lookupSize(Node* ptr, size_t n) {
+uint64_t lookupSize(Node* ptr, size_t n) {
     if (!ptr) {
-        return "";
+        return 0;
     }
     if (ptr->size(ptr) == n) {
-        return ptr->data;
+        return reinterpret_cast<uint64_t> (ptr);
     }
 
-    std::string temp1 = lookupSize(ptr->left,n);
-    std::string temp2 = lookupSize(ptr->right,n);
+    uint64_t temp1 = lookupSize(ptr->left,n);
+    uint64_t temp2 = lookupSize(ptr->right,n);
     return temp1 + temp2;;
 }
 
@@ -100,11 +100,11 @@ const std::string& Set::lookup(size_t n) const {
     }
     Node* ptr = this->mRoot;
 
-    std::string str = std::string(lookupSize(ptr,n));
-    if (str == "") {
+    ptr = reinterpret_cast<Node*>(lookupSize(ptr,n));
+    if (!ptr) {
         throw std::out_of_range("out of range in lookup()");
     }
-    return str;
+    return ptr->data;
 }
 std::string printNodes(Node* ptr) {
     if (!ptr) {                   //null
