@@ -189,7 +189,7 @@ Node* deleteNode(Node* node, std::string Value) {
             node->data = temp->data;
             delete temp;
             removed++;                            
-            node->left = deleteNode(node->left, temp->data);  
+            return node;
         }
     }
     return node;
