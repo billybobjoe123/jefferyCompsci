@@ -29,5 +29,19 @@ size_t Node::clean(Node* n) {
     delete n;
     return cnt;
 }
+size_t Node::countless(Node* root, std::string data) const {
+    Node* tmp = root;
+    size_t cnt = 0;
+    if (tmp) {
+        if (data > tmp->data) {
+            cnt += countless(tmp->left, data);
+
+            cnt += countless(tmp->right, data);
+        } else {
+            cnt += countless(tmp->left, data);
+        }
+    }
+    return cnt;
+}
 
 
