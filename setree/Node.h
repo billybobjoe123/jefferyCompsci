@@ -15,7 +15,6 @@ class Node
     size_t sub;
     Node(std::string str);
     Node(std::string str, Node* L, Node* R, size_t s);
-    ~Node();
     size_t size(const Node* n);
     size_t clean(Node* n);
     size_t countless(Node* n, std::string data) const;   
