@@ -233,7 +233,7 @@ size_t Set::remove(const std::string& value) {
         }
         Node* temp = mRoot->left;
         Node* prev = mRoot;                        
-        while(!temp->right && !temp) {
+        while(temp->right && !temp) {
             prev = temp;
             temp = temp->right;     
         }
