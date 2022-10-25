@@ -249,7 +249,9 @@ size_t Set::remove(const std::string& value) {
         }
         delete temp;
         removed++;
-
+        if (removed>0)
+            return 1;
+        return 0;
         
     }
 

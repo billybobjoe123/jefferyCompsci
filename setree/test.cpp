@@ -11,6 +11,7 @@ int main() {
   set.insert("b");
   set.insert("a");
   set.insert("c");
+  set.insert("k");
   set.print();
   return 0;
 }
