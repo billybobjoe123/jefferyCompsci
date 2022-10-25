@@ -154,7 +154,7 @@ void Set::print() const{
     }
 }
 size_t removed = 0;
-size_t removed = 0;
+
 Node* deleteNode(Node* node, std::string Value) {
     if(node) {
         if(Value < node->data) {
