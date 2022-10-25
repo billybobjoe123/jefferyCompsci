@@ -13,7 +13,6 @@ Node::Node(std::string str, Node* L, Node* R, size_t s) {
     sub = s;
 }
 
-
 size_t Node::size(const Node* n) {
   if (!n)
     return 0;

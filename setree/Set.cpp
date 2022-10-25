@@ -25,7 +25,10 @@ Set::Set(Set&& other) {
     this->mRoot = other.mRoot;
     other.mRoot = nullptr;
 }
-Set::~Set() { this ->clear();}
+Set::~Set() {
+    mRoot->clean(mRoot);
+    mRoot = nullptr;
+}
 
 size_t Set::clear() {
     size_t cnt =mRoot->size(mRoot);
@@ -151,6 +154,7 @@ void Set::print() const{
     }
 }
 size_t removed = 0;
+size_t removed = 0;
 Node* deleteNode(Node* node, std::string Value) {
     if(node) {
         if(Value < node->data) {
@@ -207,8 +211,7 @@ size_t Set::remove(const std::string& value) {
     if (!mRoot) {
         return 0;
     }
-    std::string val = value;
-    if (contains(val)) {
+    if (!contains(value)) {
         return 0;
     }
     if (mRoot->data == value) {
@@ -229,6 +232,23 @@ size_t Set::remove(const std::string& value) {
             delete temp;
             return 1;
         }
+        Node* temp = mRoot->left;
+        Node* prev = mRoot;                        
+        while(!temp->right && !temp) {
+            prev = temp;
+            temp = temp->right;     
+        }
+        mRoot->data = temp->data;
+        if (temp->left) {
+            prev->right = temp->left;
+        }
+        else {
+            prev->right = nullptr;
+        }
+        delete temp;
+        removed++;
+
+        
     }
 
     this->mRoot = deleteNode(mRoot, value);
