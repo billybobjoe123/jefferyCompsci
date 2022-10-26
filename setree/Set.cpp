@@ -186,7 +186,8 @@ Node* deleteNode(Node* node, std::string Value) {
             }
             if (node->left && node->right) {
                 Node* temp = node->left;
-                Node* prev = node;                        
+                Node* prev = node;
+                node = node->right;                        
                 while(!temp->right && !temp) {
                     prev = temp;
                     temp = temp->right;     
