@@ -16,7 +16,7 @@ class Node
     Node(std::string str);
     Node(std::string str, Node* L, Node* R, size_t s);
     size_t size(const Node* n);
-    static size_t Node::clean(Node* n) {
+    static size_t clean(Node* n) {
         if (!n) {
             return 0;
         }
