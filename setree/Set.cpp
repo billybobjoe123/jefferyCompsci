@@ -197,7 +197,11 @@ Node* deleteNode(Node* node, std::string Value) {
                 if (hasRight)
                     deleteNode(node->left,temp->data);
                 else {
-                    node->left = nullptr;
+                    temp = node->left;
+                    node->left = node->left->left;
+                    delete temp;
+                    temp = nullptr;
+
                 }
                 return node;
             }
