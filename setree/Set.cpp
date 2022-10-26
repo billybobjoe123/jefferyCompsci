@@ -26,7 +26,7 @@ Set::Set(Set&& other) {
     other.mRoot = nullptr;
 }
 Set::~Set() {
-    mRoot->clean(mRoot);
+    this->mRoot->clean(mRoot);
     mRoot = nullptr;
 }
 
@@ -153,109 +153,45 @@ void Set::print() const{
         std::cout<<"-"<<std::endl;
     }
 }
-size_t removed = 0;
 
-Node* deleteNode(Node* node, std::string Value) {
-    if(node) {
-        if(Value < node->data) {
-            node->left = deleteNode(node->left, Value);
-        }    
-       
-        else if (Value > node->data) {
-            node->right = deleteNode(node->right, Value);    
-        }
-        else {
-            if(!node->left && !node->right) {
-                removed++;
-                delete node;
-                return nullptr;
-            }          
-            if (!node->left || !node->right) {
 
-                if (node->left) {
-                    Node* temp = node;
-                    node = node->left;
-                    delete temp;
-                    removed++;
-                    return node;
-                }
-                Node* temp = node->right;
-                delete node;
-                removed++;
-                return temp;
-            }
-            if (node->left && node->right) {
-                Node* temp = node->left;
-                Node* prev = node;
-                node = node->right;                        
-                while(!temp->right && !temp) {
-                    prev = temp;
-                    temp = temp->right;     
-                }
-                node->data = temp->data;
-                if (temp->left) {
-                    prev->right = temp->left;
-                }
-                else {
-                    prev->right = nullptr;
-                }
-                delete temp;
-                removed++;                            
-                return node;
-            }
-        }
-    }
-    return node;
-}   
+
+
+
 
 size_t Set::remove(const std::string& value) {
-    removed = 0;
     
     if (!mRoot) {
         return 0;
     }
+    size_t sizeinit = mRoot->size(mRoot);
     if (mRoot->data == value) {
         if(!mRoot->left && !mRoot->right) {
             delete mRoot;
             mRoot = nullptr;
-            return 1;
+
         }
-        if (!mRoot->left) {
+        else if (!mRoot->left && mRoot->right) {
             Node* temp = mRoot;
             mRoot = mRoot->right;
             delete temp;
-            return 1;
+
         }
-        if (!mRoot->right) {
+        else if (!mRoot->right && mRoot->left) {
             Node* temp = mRoot;
             mRoot = mRoot->left;
             delete temp;
-            return 1;
-        }
-        Node* temp = mRoot->left;
-        Node* prev = mRoot;
-        mRoot = mRoot->right;                        
-        while(!temp->right && !temp) {
-            prev = temp;
-            temp = temp->right;     
-        }
-        mRoot->data = temp->data;
-        if (temp->left) {
-            prev->right = temp->left;
+
         }
         else {
-            prev->right = nullptr;
+            std::string biggestInLeftTree = Node::findBiggest(mRoot->left);
+            Node::deleteNode(mRoot,biggestInLeftTree);
+            mRoot->data = biggestInLeftTree;
         }
-        delete temp;
-        removed++;
-        if (removed>0)
-            return 1;
-        return 0;
+        
         
     }
-
-    this->mRoot = deleteNode(mRoot, value);
-    if (removed>0)
-        return 1;
-    return 0;
+    sizeinit = sizeinit - mRoot->size(mRoot);
+    return sizeinit;
+    
 }
