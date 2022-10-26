@@ -186,7 +186,7 @@ Node* deleteNode(Node* node, std::string Value) {
             }
             if (node->left && node->right) {
                 Node* temp = node->left;                       
-                while(!temp->right) {
+                while(temp->right) {
                     temp = temp->right;     
                 }
                 node->data = temp->data;
@@ -227,7 +227,7 @@ size_t Set::remove(const std::string& value) {
             return 1;
         }
             Node* temp = mRoot->left;                       
-            while(!temp->right) {
+            while(temp->right) {
                 temp = temp->right;     
             }
             mRoot->data = temp->data;
