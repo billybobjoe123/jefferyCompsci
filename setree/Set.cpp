@@ -249,7 +249,6 @@ size_t Set::remove(const std::string& value) {
             prev->right = nullptr;
         }
         delete temp;
-        removed++;
         return 1;
         
     }
