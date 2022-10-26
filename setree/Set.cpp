@@ -247,10 +247,10 @@ size_t Set::remove(const std::string& value) {
             return 1;
             }
    
-
+    }
     this->mRoot = deleteNode(mRoot, value);
     init = init - mRoot->size(mRoot);
     return init;
     
-}
+
 }
