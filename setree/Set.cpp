@@ -164,7 +164,7 @@ Node* deleteNode(Node* node, std::string Value) {
         else if (Value > node->data) {
             node->right = deleteNode(node->right, Value);    
         }
-        else {
+        else if (Value == node->data) {
             if(!node->left && !node->right) {
 
                 delete node;
