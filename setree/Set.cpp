@@ -153,7 +153,7 @@ void Set::print() const{
         std::cout<<"-"<<std::endl;
     }
 }
-size_t removed = 0;
+
 
 Node* deleteNode(Node* node, std::string Value) {
     if(node) {
@@ -166,7 +166,7 @@ Node* deleteNode(Node* node, std::string Value) {
         }
         else {
             if(!node->left && !node->right) {
-                removed++;
+
                 delete node;
                 return nullptr;
             }          
@@ -176,12 +176,12 @@ Node* deleteNode(Node* node, std::string Value) {
                     Node* temp = node;
                     node = node->left;
                     delete temp;
-                    removed++;
+
                     return node;
                 }
                 Node* temp = node->right;
                 delete node;
-                removed++;
+
                 return temp;
             }
             if (node->left && node->right) {
@@ -199,7 +199,7 @@ Node* deleteNode(Node* node, std::string Value) {
                     prev->right = nullptr;
                 }
                 delete temp;
-                removed++;                            
+                                           
                 return node;
             }
         }
@@ -208,11 +208,12 @@ Node* deleteNode(Node* node, std::string Value) {
 }   
 
 size_t Set::remove(const std::string& value) {
-    removed = 0;
+    
     
     if (!mRoot) {
         return 0;
     }
+    size_t init = mRoot->size(mRoot);
     if (!contains(value)) {
         return 0;
     }
@@ -249,10 +250,12 @@ size_t Set::remove(const std::string& value) {
         }
         delete temp;
         removed++;
-
+        return 1;
         
     }
 
     this->mRoot = deleteNode(mRoot, value);
+    init = init - mRoot->size(mRoot);
+    return init;
     
 }
