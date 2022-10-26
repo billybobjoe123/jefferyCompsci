@@ -170,27 +170,33 @@ Node* deleteNode(Node* node, std::string Value) {
                 delete node;
                 return nullptr;
             }          
-            if (!node->left || !node->right) {
+            else if (!node->left || !node->right) {
 
-                if (node->left) {
+                if (node->left && !node->right) {
                     Node* temp = node;
                     node = node->left;
                     delete temp;
 
                     return node;
                 }
-                Node* temp = node->right;
-                delete node;
+                if (!node->left && node->right) {
+                    Node* temp = node;
+                    node = node->right;
+                    delete temp;
 
-                return temp;
+                    return node;
+                }
             }
-            if (node->left && node->right) {
-                Node* temp = node->left;                       
+            else if (node->left && node->right) {
+                Node* temp = node->left; 
+                Node* prev = node;                      
                 while(temp->right) {
+                    prev = temp;
                     temp = temp->right;     
                 }
                 node->data = temp->data;
-                deleteNode(node->left,temp->data);
+                delete temp;
+                prev->right = nullptr;
                 return node;
             }
         }
@@ -205,35 +211,36 @@ size_t Set::remove(const std::string& value) {
         return 0;
     }
     size_t init = mRoot->size(mRoot);
-    if (!contains(value)) {
-        return 0;
-    }
     if (mRoot->data == value) {
         if(!mRoot->left && !mRoot->right) {
             delete mRoot;
             mRoot = nullptr;
             return 1;
         }
-        if (!mRoot->left) {
+        if (!mRoot->left&& mRoot->right) {
             Node* temp = mRoot;
             mRoot = mRoot->right;
             delete temp;
             return 1;
         }
-        if (!mRoot->right) {
+        if (!mRoot->right && mRoot->left) {
             Node* temp = mRoot;
             mRoot = mRoot->left;
             delete temp;
             return 1;
         }
-            Node* temp = mRoot->left;                       
+        if (mRoot->left && mRoot->left) {
+            Node* temp = mRoot->left; 
+            Node* prev = mRoot;                      
             while(temp->right) {
+                prev = temp;
                 temp = temp->right;     
             }
             mRoot->data = temp->data;
-            deleteNode(mRoot->left,temp->data);
+            delete temp;
+            prev->right = nullptr;
             return 1;
-        
+        }
     }
 
     this->mRoot = deleteNode(mRoot, value);

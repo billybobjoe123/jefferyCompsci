@@ -7,11 +7,21 @@
 
 int main() {
   Set set;
-  set.insert("g");
-  set.insert("b");
-  set.insert("a");
+  set.insert("m");
+  set.insert("o");
   set.insert("c");
-  set.insert("k");
+  set.insert("e");
+  set.insert("p");
+  set.insert("z");
+  set.insert("y");
+  set.insert("q");
   set.print();
+  set.remove("m");
+  set.remove("o");
+  std::cout<<"here";
+  set.remove("e");
+    
+  set.print();
+  set.~Set();
   return 0;
 }
