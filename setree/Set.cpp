@@ -212,6 +212,9 @@ size_t Set::remove(const std::string& value) {
     if (!mRoot) {
         return 0;
     }
+    if (!contains(value)) {
+        return 0;
+    }
     size_t init = mRoot->size(mRoot);
     if (mRoot->data == value) {
         if(!mRoot->left && !mRoot->right) {
