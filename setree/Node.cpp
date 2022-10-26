@@ -20,14 +20,7 @@ size_t Node::size(const Node* n) {
 }
 
 
-size_t Node::clean(Node* n) {
-    if (!n) {
-        return 0;
-    }
-    size_t cnt = clean(n->left) + clean(n->right) + 1;
-    delete n;
-    return cnt;
-}
+
 size_t Node::countless(Node* root, std::string data) const {
     Node* tmp = root;
     size_t cnt = 0;
