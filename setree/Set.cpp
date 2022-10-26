@@ -183,15 +183,28 @@ size_t Set::remove(const std::string& value) {
             delete temp;
 
         }
-        else {
-            std::string biggestInLeftTree = Node::findBiggest(mRoot->left);
-            Node::deleteNode(mRoot,biggestInLeftTree);
-            mRoot->data = biggestInLeftTree;
+        else if (mRoot->left && mRoot->right){
+            Node* temp = mRoot->left;
+            Node* prev = mRoot;                        
+            while(temp->right && temp) {
+                prev = temp;
+                temp = temp->right;     
+            }
+            mRoot->data = temp->data;
+            if (temp->left) {
+                prev->right = temp->left;
+            }
+            else {
+                prev->right = nullptr;
+            }
+            delete temp;
+        
         }
         
         
     }
+    Node::deleteNode(mRoot->left,value);
     sizeinit = sizeinit - mRoot->size(mRoot);
-    return sizeinit;
+    return sizeinit; 
     
 }
