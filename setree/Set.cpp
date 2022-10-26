@@ -185,21 +185,12 @@ Node* deleteNode(Node* node, std::string Value) {
                 return temp;
             }
             if (node->left && node->right) {
-                Node* temp = node->left;
-                Node* prev = node;                        
-                while(!temp->right && temp) {
-                    prev = temp;
+                Node* temp = node->left;                       
+                while(!temp->right) {
                     temp = temp->right;     
                 }
                 node->data = temp->data;
-                if (temp->left) {
-                    prev->right = temp->left;
-                }
-                else {
-                    prev->right = nullptr;
-                }
-                delete temp;
-                                           
+                deleteNode(node->left,temp->data);
                 return node;
             }
         }
@@ -235,21 +226,13 @@ size_t Set::remove(const std::string& value) {
             delete temp;
             return 1;
         }
-        Node* temp = mRoot->left;
-        Node* prev = mRoot;                        
-        while(!temp->right && temp) {
-            prev = temp;
-            temp = temp->right;     
-        }
-        mRoot->data = temp->data;
-        if (temp->left) {
-            prev->right = temp->left;
-        }
-        else {
-            prev->right = nullptr;
-        }
-        delete temp;
-        return 1;
+            Node* temp = mRoot->left;                       
+            while(!temp->right) {
+                temp = temp->right;     
+            }
+            mRoot->data = temp->data;
+            deleteNode(mRoot->left,temp->data);
+            return 1;
         
     }
 
