@@ -26,13 +26,13 @@ Set::Set(Set&& other) {
     other.mRoot = nullptr;
 }
 Set::~Set() {
-    mRoot->clean(mRoot);
+    Node::clean(mRoot);
     mRoot = nullptr;
 }
 
 size_t Set::clear() {
     size_t cnt =mRoot->size(mRoot);
-    this->mRoot->clean(mRoot);
+    Node::clean(mRoot);
     mRoot = nullptr;
     return cnt;
     

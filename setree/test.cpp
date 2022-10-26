@@ -18,10 +18,10 @@ int main() {
   set.print();
   set.remove("m");
   set.remove("o");
-  std::cout<<"here";
-  set.remove("e");
-    
   set.print();
+
+    
+
   set.~Set();
   return 0;
 }

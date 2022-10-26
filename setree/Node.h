@@ -16,7 +16,14 @@ class Node
     Node(std::string str);
     Node(std::string str, Node* L, Node* R, size_t s);
     size_t size(const Node* n);
-    size_t clean(Node* n);
+    static size_t Node::clean(Node* n) {
+        if (!n) {
+            return 0;
+        }
+        size_t cnt = clean(n->left) + clean(n->right) + 1;
+        delete n;
+        return cnt;
+    }
     size_t countless(Node* n, std::string data) const;   
 
 };
