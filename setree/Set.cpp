@@ -71,7 +71,6 @@ size_t Set::insert(const std::string& Value) {
         if (ptr->data > Value) {
             if (!ptr->left) {
                 ptr->left = new Node(Value);
-
                 return 1;
             }
             ptr = ptr->left;
@@ -246,7 +245,10 @@ size_t Set::remove(const std::string& value) {
             if (hasRight)
                 deleteNode(mRoot->left,temp->data);
             else {
-                mRoot->left = nullptr;
+                Node* temp = mRoot->left;
+                mRoot->left = mRoot->left->left;
+                delete temp;
+                temp = nullptr;
             }
             return 1;
             }
