@@ -62,6 +62,9 @@ double operatorNode::value()   const{
     else if(data == "~") {
         return left->value() * -1;
     }
+    else {
+        return 0;
+    }
 }
 
 
