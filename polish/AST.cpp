@@ -41,8 +41,8 @@ AST* AST::parse(const std::string& expression) {
             }
             else if (s=="+" || s=="-" || s=="*" || s=="/" || s=="%") {
                 operatorNode* node = new operatorNode(str);
-                node->left = stack->pop();
                 node->right = stack->pop();
+                node->left = stack->pop();
                 if (!node->left || !node->right) { 
                     delete node;
                     delete stack;

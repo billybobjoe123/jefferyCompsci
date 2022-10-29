@@ -3,6 +3,7 @@
 Stack::Stack() {
     array = new AST*[200];
     index = 0;
+    size = 200;
 }
 Stack::~Stack() {
     for(size_t i = 0;i<index;i++) {
