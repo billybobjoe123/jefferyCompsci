@@ -16,7 +16,7 @@ AST* AST::parse(const std::string& expression) {
     while(mystream >> str) {
         double number;
         try {
-            size_t *usedChar = 0;
+            size_t *usedChar;
             number = std::stod(str, usedChar);
             if (*usedChar<str.size()) {
                 delete stack;
@@ -24,7 +24,6 @@ AST* AST::parse(const std::string& expression) {
             }
             numberNode *n = new numberNode(number);
             stack->push(n);
-            delete usedChar;
         }
         catch(...) {
             if (str=="~") {
