@@ -5,6 +5,10 @@ Stack::Stack() {
     index = 0;
 }
 Stack::~Stack() {
+    for(size_t i = 0;i<index;i++) {
+        delete array[i];
+        array[i] = nullptr;
+    }
     delete[] array;
 }
 void Stack::push(AST* node){
@@ -29,6 +33,7 @@ void Stack::resize() {
         array = new AST*[size*2];
         for(size_t i = 0; i<size;i++) {
             array[i] = temp[i];
+            temp[i] = nullptr;
         }
         delete[] temp; 
     }

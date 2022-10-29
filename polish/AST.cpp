@@ -48,7 +48,7 @@ AST* AST::parse(const std::string& expression) {
                     delete stack;
                     node = nullptr;
                     stack = nullptr;
-                    throw std::runtime_error("Mot enough operands.");
+                    throw std::runtime_error("Not enough operands.");
                 }
                 if (s=="/" || s=="%") {
                     if (node->right->value() == 0) {
