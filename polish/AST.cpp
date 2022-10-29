@@ -14,8 +14,14 @@ AST* AST::parse(const std::string& expression) {
     std::string str;
     
     while(mystream >> str) {
-        if (std::stod(str)) {
-            double number = std::stod(str);
+        double number;
+        try {
+            number = std::stod(str);
+        }
+        catch(...) {
+            number = -500000000000;
+        }
+        if (number!=-500000000000) {
             numberNode *n = new numberNode(number);
             stack->push(n);
         }
