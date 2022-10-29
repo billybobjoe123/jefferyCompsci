@@ -16,11 +16,10 @@ AST* AST::parse(const std::string& expression) {
     while(mystream >> str) {
         double number;
         try {
-            size_t* usedChar = new size_t(0);
+            size_t *usedChar = 0;
             number = std::stod(str, usedChar);
             if (*usedChar<str.size()) {
                 delete stack;
-                delete usedChar;
                 throw std::runtime_error("Invalid token: " + str);
             }
             numberNode *n = new numberNode(number);
