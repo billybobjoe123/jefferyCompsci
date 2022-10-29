@@ -1,5 +1,6 @@
 #include "Nodes.h"
-
+#include <sstream>
+#include <stdexcept>
 #include <cmath>
 // Implement your AST subclasses' member functions here.
 numberNode::numberNode(int val) {
@@ -7,7 +8,9 @@ numberNode::numberNode(int val) {
 }
 
 std::string numberNode::prefix()  const{
-    return std::to_string(this->data);
+    std::ostringstream stream;
+    stream << data;
+    return stream.str();
 }
 
 std::string numberNode::postfix() const {
@@ -54,9 +57,16 @@ double operatorNode::value()   const{
         return left->value() * right->value();
     }
     else if(data == "/") {
+        if (right->value()==0) {
+            throw std::runtime_error("Division by zero.");
+        }
+
         return left->value() / right->value();
     }
     else if(data == "%") {
+        if (right->value()==0) {
+            throw std::runtime_error("Division by zero.");
+        }
         return remainder(left->value(),right->value());
     }
     else if(data == "~") {

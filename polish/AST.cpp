@@ -16,18 +16,17 @@ AST* AST::parse(const std::string& expression) {
     while(mystream >> str) {
         double number;
         try {
-            number = std::stod(str);
-        }
-        catch(...) {
-            number = -500000000000;
-        }
-        if (number!=-500000000000) {
+            size_t* usedChar;
+            number = std::stod(str, usedChar);
+            if (*usedChar<str.size()) {
+                delete stack;
+                throw std::runtime_error("Invalid token: " + str);
+            }
             numberNode *n = new numberNode(number);
             stack->push(n);
         }
-        else {
-            std::string s = str;
-            if (s=="~") {
+        catch(...) {
+            if (str=="~") {
                 operatorNode* node = new operatorNode(str);
                 node->left = stack->pop();
                 if (!node->left) { 
@@ -39,7 +38,7 @@ AST* AST::parse(const std::string& expression) {
                 }
                 stack->push(node);
             }
-            else if (s=="+" || s=="-" || s=="*" || s=="/" || s=="%") {
+            else if (str=="+" || str=="-" || str=="*" || str=="/" || str=="%") {
                 operatorNode* node = new operatorNode(str);
                 node->right = stack->pop();
                 node->left = stack->pop();
@@ -50,15 +49,6 @@ AST* AST::parse(const std::string& expression) {
                     stack = nullptr;
                     throw std::runtime_error("Not enough operands.");
                 }
-                if (s=="/" || s=="%") {
-                    if (node->right->value() == 0) {
-                        delete node;
-                        delete stack;
-                        node = nullptr;
-                        stack = nullptr;
-                        throw std::runtime_error("Division by zero.");
-                    }
-                }
                 stack->push(node);
             }
             else {
@@ -66,8 +56,10 @@ AST* AST::parse(const std::string& expression) {
                 delete stack;
                 throw std::runtime_error(error);
             }
-
         }
+       
+        
+
         
     }
     if (stack->indexSize()>1) {
