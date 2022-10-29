@@ -45,7 +45,7 @@ std::string operatorNode::postfix() const {
     if (this->data == "~") {
         return this->left->postfix() + " " + this->data;
     }
-    return this->left->postfix() + " " + this->right->postfix() + this->data;
+    return this->left->postfix() + " " + this->right->postfix() + " " + this->data;
 }
 
 double operatorNode::value()   const{

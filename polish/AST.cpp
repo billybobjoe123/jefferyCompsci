@@ -53,9 +53,8 @@ AST* AST::parse(const std::string& expression) {
                 stack->push(node);
             }
             else {
-                std::string error = "Invalid token: " + str;
                 delete stack;
-                throw std::runtime_error(error);
+                throw std::runtime_error("Invalid token: " + str);
             }
         }
        
