@@ -72,5 +72,6 @@ AST* AST::parse(const std::string& expression) {
     }
     AST* astnode =  stack->pop();
     delete stack;
+    return astnode;
     
 }
