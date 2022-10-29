@@ -27,7 +27,7 @@ void Stack::resize() {
     if (index==size-1) {
         AST* *temp = array;
         array = new AST*[size*2];
-        for(int i = 0; i<size;i++) {
+        for(size_t i = 0; i<size;i++) {
             array[i] = temp[i];
         }
         delete[] temp; 
