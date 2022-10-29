@@ -70,5 +70,7 @@ AST* AST::parse(const std::string& expression) {
         delete stack;
         throw std::runtime_error("No input.");
     }
-    return stack->pop();
+    AST* astnode =  stack->pop();
+    delete stack;
+    
 }
