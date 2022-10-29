@@ -14,7 +14,9 @@ std::string numberNode::prefix()  const{
 }
 
 std::string numberNode::postfix() const {
-    return std::to_string(this->data);
+    std::ostringstream stream;
+    stream << data;
+    return stream.str();
 }
 
 double numberNode::value()   const{
