@@ -3,7 +3,7 @@
 #include <stdexcept>
 #include <cmath>
 // Implement your AST subclasses' member functions here.
-numberNode::numberNode(int val) {
+numberNode::numberNode(double val) {
     this->data = val;
 }
 

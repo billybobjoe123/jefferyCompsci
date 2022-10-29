@@ -9,7 +9,7 @@ class numberNode: public AST {
     private:
     double data;
     public:
-    numberNode(int val);
+    numberNode(double val);
     std::string prefix()  const;
     std::string postfix() const;
     double value()   const;
