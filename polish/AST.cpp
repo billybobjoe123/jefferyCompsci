@@ -28,7 +28,7 @@ AST* AST::parse(const std::string& expression) {
             numberNode *n = new numberNode(number);
             stack->push(n); 
         }
-        catch(std::runtime_error) {
+        catch(...) {
             if (str=="~") {
                 operatorNode* node = new operatorNode(str);
                 node->left = stack->pop();
@@ -55,8 +55,7 @@ AST* AST::parse(const std::string& expression) {
                 stack->push(node);
             }
             else {
-                
-                    delete stack;
+                delete stack;
                 throw std::runtime_error("Invalid token: " + str);
             }
         }
