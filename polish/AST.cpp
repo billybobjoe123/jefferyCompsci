@@ -26,7 +26,7 @@ AST* AST::parse(const std::string& expression) {
                 throw std::runtime_error("Invalid token: " + str);
             }
             numberNode *n = new numberNode(number);
-            stack->push(n); 
+            stack->push(n);
         }
         catch(...) {
             if (str=="~") {
