@@ -69,7 +69,7 @@ double operatorNode::value()   const{
         if (right->value()==0) {
             throw std::runtime_error("Division by zero.");
         }
-        return remainder(left->value(),right->value());
+        return fmod(left->value(),right->value());
     }
     else if(data == "~") {
         return left->value() * -1;
