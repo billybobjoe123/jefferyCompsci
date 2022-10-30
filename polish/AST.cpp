@@ -22,6 +22,7 @@ AST* AST::parse(const std::string& expression) {
             number = std::stod(str, usedChar);
             if (*usedChar<str.size()) {
                 delete stack;
+                stack = nullptr;
                 throw std::runtime_error("Invalid token: " + str);
             }
             numberNode *n = new numberNode(number);
@@ -54,7 +55,10 @@ AST* AST::parse(const std::string& expression) {
                 stack->push(node);
             }
             else {
-                delete stack;
+                if(stack) {
+                    delete stack;
+                    stack = nullptr;
+                }
                 throw std::runtime_error("Invalid token: " + str);
             }
         }
