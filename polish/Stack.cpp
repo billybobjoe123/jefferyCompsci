@@ -33,6 +33,7 @@ void Stack::resize() {
             temp[i] = nullptr;
         }
         delete[] temp; 
+        size = size*2;
     }
 }
 
