@@ -9,7 +9,7 @@ Stack::Stack() {
     }
 }
 Stack::~Stack() {
-    for (size_t i =0;i<size;i++) {
+    for (size_t i =0;i<index;i++) {
         delete array[i];
     }
     delete[] array;
