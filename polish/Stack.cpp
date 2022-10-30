@@ -4,9 +4,12 @@ Stack::Stack() {
     array = new AST*[200];
     index = 0;
     size = 200;
+    for(size_t i = 0; i<size;i++) {
+        array[i] = nullptr;
+    }
 }
 Stack::~Stack() {
-    for (size_t i =0;i<index;i++) {
+    for (size_t i =0;i<size;i++) {
         delete array[i];
     }
     delete[] array;
@@ -32,8 +35,13 @@ void Stack::resize() {
         AST* *temp = array;
         array = new AST*[size*2];
         for(size_t i = 0; i<size;i++) {
+
             array[i] = temp[i];
             temp[i] = nullptr;
+
+        }
+        for (size_t i = size;i<size*2;i++) {
+            array[i] = nullptr;
         }
         delete[] temp; 
         size = size*2;
