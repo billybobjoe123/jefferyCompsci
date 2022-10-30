@@ -17,6 +17,8 @@ AST* AST::parse(const std::string& expression) {
         double number;
         try {
             size_t *usedChar;
+            size_t numb = 0;
+            usedChar = &numb;
             number = std::stod(str, usedChar);
             if (*usedChar<str.size()) {
                 delete stack;
