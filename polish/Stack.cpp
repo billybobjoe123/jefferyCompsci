@@ -9,10 +9,10 @@ Stack::Stack() {
     }
 }
 Stack::~Stack() {
-    for (size_t i = 0; i < index; i++) {
+    for (size_t i =0;i<index;i++) {
         delete array[i];
     }
-    array = nullptr;
+    delete[] array;
 }
 void Stack::push(AST* node){
     if (node) {
