@@ -6,7 +6,7 @@ Stack::Stack() {
     size = 200;
 }
 Stack::~Stack() {
-    for (size_t i =0;i<index-1;i++) {
+    for (size_t i =0;i<index;i++) {
         delete array[i];
     }
     delete[] array;
