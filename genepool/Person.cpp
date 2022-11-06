@@ -313,7 +313,15 @@ std::set<Person*> Person::siblings(PMod pmod, SMod smod) {
         }
     }
     else {
-        std::set_union(fatherside.begin(),fatherside.end(), motherside.begin(),motherside.end(), inserter(sibling,sibling.begin()));
+        if(smod == SMod::ANY) {
+            std::set_union(fatherside.begin(),fatherside.end(), motherside.begin(),motherside.end(), inserter(sibling,sibling.begin()));
+        }
+        else if(smod == SMod::FULL) {
+            std::set_intersection(fatherside.begin(),fatherside.end(), motherside.begin(),motherside.end(), inserter(sibling,sibling.begin()));
+        }
+        else {
+            std::set_symmetric_difference(motherside.begin(),motherside.end(),fatherside.begin(),fatherside.end(), inserter(sibling,sibling.begin()));
+        }
     }
     return sibling;
 
