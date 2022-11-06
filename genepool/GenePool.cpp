@@ -46,7 +46,7 @@ GenePool::GenePool(std::istream& stream) {
             }
             map->insert({name,person});
         }
-        
+
     } 
 
 }
@@ -57,6 +57,7 @@ GenePool::~GenePool() {
         delete (itr->second);
     }
     map->clear();
+    delete map;
 }
 
 Person* GenePool::find(const std::string& name) const {
