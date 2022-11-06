@@ -38,17 +38,19 @@ std::set<Person*> Person::ancestorHelper(Person* person) {
     return ancestor;
 }
 std::set<Person*> Person::ancestors(PMod pmod) {
+     std::set<Person*> ancestor;
     if(pmod == PMod::MATERNAL) {
-        return ancestorHelper(mommy);
+        ancestor = ancestorHelper(mommy);
     }
     else if( pmod == PMod::PATERNAL) {
-        return ancestorHelper(daddy);
+        ancestor = ancestorHelper(daddy);
     }
     else {
         std::set<Person*> ancestor =  ancestorHelper(daddy);
         ancestor.merge(ancestorHelper(mommy));
-        return ancestor;
     }
+    ancestor.erase(this);
+    return ancestor;
 }
     
 std::set<Person*> Person::descendantHelper(Person* person) {
