@@ -265,10 +265,10 @@ std::set<Person*> Person::nieces(PMod pmod, SMod smod) {
 }
 std::set<Person*> Person::parents(PMod pmod) {
     std::set<Person*> P = std::set<Person*>();
-    if(mommy) {
+    if(mommy && pmod == PMod::MATERNAL || pmod == PMod::ANY) {
         P.insert(mommy);
     }
-    if(daddy) {
+    if(daddy && pmod == PMod::MATERNAL || pmod == PMod::ANY) {
         P.insert(daddy);
     }
     return P;
