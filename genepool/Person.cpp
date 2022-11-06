@@ -273,7 +273,7 @@ std::set<Person*> Person::parents(PMod pmod) {
     if(mommy && (pmod == PMod::MATERNAL || pmod == PMod::ANY)) {
         P.insert(mommy);
     }
-    if(daddy && (pmod == PMod::MATERNAL || pmod == PMod::ANY)) {
+    if(daddy && (pmod == PMod::PATERNAL || pmod == PMod::ANY)) {
         P.insert(daddy);
     }
     return P;
