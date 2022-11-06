@@ -250,9 +250,8 @@ std::set<Person*> Person::nephews(PMod pmod, SMod smod) {
     std::set<Person*> nefs = std::set<Person*>();
     for(auto iter = sibs.begin(); iter!=sibs.end();iter++) {
         Person* person = *iter;
-        if (person->gender() == Gender::MALE) {
-            sibs.insert(person);
-        }
+        std::set<Person*> son = person->sons();
+        nefs.merge(son);
     }
     return nefs;
 
@@ -262,9 +261,8 @@ std::set<Person*> Person::nieces(PMod pmod, SMod smod) {
     std::set<Person*> niece = std::set<Person*>();
     for(auto iter = sibs.begin(); iter!=sibs.end();iter++) {
         Person* person = *iter;
-        if (person->gender() == Gender::FEMALE) {
-            niece.insert(person);
-        }
+        std::set<Person*> dau = person->daughters();
+        niece.merge(dau);
     }
     return niece;
 }
