@@ -13,19 +13,25 @@
 
 class Person {
   // Member Variables
-
+  std::string Name;
+  Person* mommy;
+  Person* daddy;
+  Gender gend;
+  std::set<Person*> kids;
+  
   // Helper Functions
-
+  std::set<Person*> ancestorHelper(Person* person);
+  std::set<Person*> descendantHelper(Person* person);
 public:
   // Constructor
+  Person(std::string n,Person* mother, Person* father, Gender gender);
   // Destructor?
-
   // Required Getter Functions
   const std::string& name()   const;
   Gender             gender() const;
   Person*            mother();
   Person*            father();
-
+  void addChild(Person* person);
   // Required Relationship Functions
   std::set<Person*> ancestors(PMod pmod = PMod::ANY);
   std::set<Person*> aunts(PMod pmod = PMod::ANY, SMod smod = SMod::ANY);
