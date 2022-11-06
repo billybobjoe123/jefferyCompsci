@@ -65,7 +65,10 @@ std::set<Person*> Person::descendantHelper(Person* person) {
     return descendant;
 }
 std::set<Person*> Person::descendants() {
-    return descendantHelper(this);
+
+    std::set<Person*> desc = descendantHelper(this);
+    desc.erase(this);
+    return desc;
 }
 std::set<Person*> Person::aunts(PMod pmod, SMod smod) {
     std::set<Person*> aunt = std::set<Person*>();
