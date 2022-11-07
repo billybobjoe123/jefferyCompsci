@@ -32,7 +32,7 @@ std::set<Person*> Person::ancestorHelper(Person* person) {
     if(!person) {
         return ancestor;
     }
-    ancestor.insert(this);
+    ancestor.insert(person);
     ancestor.merge(ancestorHelper(person->mother()));
     ancestor.merge(ancestorHelper(person->father()));
     return ancestor;
