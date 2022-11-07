@@ -75,17 +75,17 @@ std::set<Person*> Person::descendants() {
 std::set<Person*> Person::aunts(PMod pmod, SMod smod) {
     std::set<Person*> aunt = std::set<Person*>();
     if (pmod == PMod::MATERNAL && mommy) {
-        aunt.merge(mommy->sisters());
+        aunt.merge(mommy->sisters(PMod::ANY,smod));
     }
     else if (pmod == PMod::PATERNAL && daddy) {
-        aunt.merge(daddy->sisters());
+        aunt.merge(daddy->sisters(PMod::ANY,smod));
     }
     else {
         if (mommy) {
-            aunt.merge(mommy->sisters());
+            aunt.merge(mommy->sisters(PMod::ANY,smod));
         }
         if (daddy) {
-            aunt.merge(daddy->sisters());
+            aunt.merge(daddy->sisters(PMod::ANY,smod));
         }
     }
     return aunt;
