@@ -329,17 +329,17 @@ std::set<Person*> Person::siblings(PMod pmod, SMod smod) {
 std::set<Person*> Person::uncles(PMod pmod, SMod smod) {
     std::set<Person*> uncle = std::set<Person*>();
     if (pmod == PMod::MATERNAL && mommy) {
-        uncle.merge(mommy->brothers());
+        uncle.merge(mommy->brothers(PMod::ANY,smod));
     }
     else if (pmod == PMod::PATERNAL && daddy) {
-        uncle.merge(daddy->brothers());
+        uncle.merge(daddy->brothers(PMod::ANY,smod));
     }
     else {
         if (mommy) {
-            uncle.merge(mommy->brothers());
+            uncle.merge(mommy->brothers(PMod::ANY,smod));
         }
         if (daddy) {
-            uncle.merge(daddy->brothers());
+            uncle.merge(daddy->brothers(PMod::ANY,smod));
         }
     }
     return uncle;
