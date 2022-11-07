@@ -46,7 +46,7 @@ std::set<Person*> Person::ancestors(PMod pmod) {
         ancestor = ancestorHelper(daddy);
     }
     else {
-        std::set<Person*> ancestor =  ancestorHelper(daddy);
+        ancestor =  ancestorHelper(daddy);
         ancestor.merge(ancestorHelper(mommy));
     }
     ancestor.erase(this);
@@ -59,11 +59,12 @@ std::set<Person*> Person::descendantHelper(Person* person) {
         return descendant;
     }
     std::set<Person*> kid = person->children();
-    descendant.merge(kid);
+    
     for(auto iter = kid.begin();iter!=kid.end();iter++) {
         Person* person = *iter;
         descendant.merge(descendantHelper(person));
     }
+    descendant.merge(kid);
     return descendant;
 }
 std::set<Person*> Person::descendants() {
