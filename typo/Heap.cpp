@@ -155,7 +155,7 @@ void Heap::push(const std::string& value, float score) {
     //percolate up
     size_t ind = mCount;
     while(ind!=0) {
-        if(mData[ind].score>mData[(ind-1)/2].score) {
+        if(mData[ind].score<mData[(ind-1)/2].score) {
             Heap::Entry temp = mData[(ind-1)/2];
             mData[(ind-1)/2] = mData[ind];
             mData[ind] = temp;
