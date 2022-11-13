@@ -149,20 +149,19 @@ Heap Dictionary::correct(const std::vector<Point>& points, size_t maxcount, floa
             float dist = sqrt(pow(p.x - points[i].x,2) + pow(p.y - points[i].y,2));
             score = score + 1 / (10*pow(dist,2) + 1);
         }
-        if(wordSize<points.size())
+        if(wordSize==points.size()){
             score = score/points.size();
-        if(wordSize>points.size())
-            score = score/wordSize;
-        if(score >= cutoff) {
-            if(wordHeap.count()<wordHeap.capacity()) {
-                wordHeap.push(word,score);
-            }
-            else {
-                if(wordHeap.top().score<score) {
-                    wordHeap.pushpop(word,score);
+            if(score >= cutoff) {
+                if(wordHeap.count()<wordHeap.capacity()) {
+                    wordHeap.push(word,score);
                 }
+                else {
+                    if(wordHeap.top().score<score) {
+                        wordHeap.pushpop(word,score);
+                    }
+                }
+                
             }
-            
         }
     }
     return wordHeap;
