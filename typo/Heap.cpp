@@ -9,18 +9,21 @@ Heap::Heap(size_t capacity) {
 Heap::Heap(const Heap& other) {
     
     mCapacity = other.capacity();
-    mCount = other.count();
+    size_t count = other.count();
+    mCount = 0;
     mData = new Entry[mCapacity];
-    for(size_t i = 0; i < mCount; i++) {
+    
+    for(size_t i = 0; i < count; i++) {
         Heap::Entry entry = other.lookup(i);
         this->push(entry.value,entry.score);
     }
 }
 Heap::Heap(Heap&& other) {
     this->mCapacity = other.capacity();
-    this->mCount = other.count();
+    mCount = 0;
+    size_t count = other.count();
     mData = new Entry[mCapacity];
-    for(size_t i = 0; i < mCount; i++) {
+    for(size_t i = 0; i < count; i++) {
         Heap::Entry entry = other.pop();
         this->push(entry.value,entry.score);
     }
