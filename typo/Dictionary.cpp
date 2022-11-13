@@ -116,10 +116,11 @@ Point letterToPoint(char c) {
     case 'z':
         /* code */
         return QWERTY[25];
-        
     }
-
-    
+    Point point;
+    point.x = 100;
+    point.y = 100;
+    return point;
 }
 
 

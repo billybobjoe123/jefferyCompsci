@@ -4,7 +4,7 @@ Heap::Heap(size_t capacity) {
     mData = new Entry[capacity];
     mCapacity = capacity;
     mCount = 0;
-    
+
 }
 
 Heap::Heap(const Heap& other) {
@@ -165,6 +165,7 @@ void Heap::push(const std::string& value, float score) {
             break;
         }
     }
+    mCount++;
 }
 
 const Heap::Entry& Heap::top() const {
