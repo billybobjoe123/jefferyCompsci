@@ -6,24 +6,25 @@ Heap::Heap(size_t capacity) {
     mCount = 0;
 
 }
-
 Heap::Heap(const Heap& other) {
-    size_t count = other.count();
-    for(size_t i = 0; i < count; i++) {
+    
+    mCapacity = other.capacity();
+    mCount = other.count();
+    mData = new Entry[mCapacity];
+    for(size_t i = 0; i < mCount; i++) {
         Heap::Entry entry = other.lookup(i);
         this->push(entry.value,entry.score);
     }
-    this->mCapacity = other.capacity();
-    this->mCount = count;
 }
 Heap::Heap(Heap&& other) {
-    size_t count = other.count();
+    this->mCapacity = other.capacity();
+    this->mCount = other.count();
+    mData = new Entry[mCapacity];
     for(size_t i = 0; i < count; i++) {
         Heap::Entry entry = other.pop();
         this->push(entry.value,entry.score);
     }
-    this->mCapacity = other.capacity();
-    this->mCount = count;
+
 }
 Heap::~Heap() {
     delete[] this->mData;
