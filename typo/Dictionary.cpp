@@ -135,6 +135,7 @@ Dictionary::Dictionary(std::istream& stream) {
 
 Heap Dictionary::correct(const std::vector<Point>& points, size_t maxcount, float cutoff) const {
     Heap wordHeap = Heap(maxcount);
+    
     for(size_t i = 0;i<mWords.size();i++) {
         std::string word = mWords[i];
         size_t wordSize = word.size();
@@ -150,7 +151,15 @@ Heap Dictionary::correct(const std::vector<Point>& points, size_t maxcount, floa
         }
         score = score/points.size();
         if(score >= cutoff) {
-            wordHeap.push(word,score);
+            if(wordHeap.count()<wordHeap.capacity()) {
+                wordHeap.push(word,score);
+            }
+            else {
+                if(wordHeap.top().score<score) {
+                    wordHeap.pushpop(word,score);
+                }
+            }
+            
         }
     }
     return wordHeap;
