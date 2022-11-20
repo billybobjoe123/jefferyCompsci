@@ -195,7 +195,9 @@ std::vector<Star> KDtree::find(size_t n, float x, float y, float z) {
     nearestNeighbors.push_back(star);
   }
   std::reverse(nearestNeighbors.begin(),nearestNeighbors.end());
+  delete pqueue;
   return nearestNeighbors;
+
 
 }
 
