@@ -38,7 +38,7 @@ public:
     ~KDtree();
     size_t push(Entry* entry);
     std::vector<Star> find(size_t n, float x, float y, float z);
-    Entry* nearestNeighbor(Entry* root, std::priority_queue<wrap> neighbor, size_t n,float x, float y, float z);
+    Entry* nearestNeighbor(Entry* root, std::priority_queue<wrap> *neighbor, size_t n,float x, float y, float z);
     Entry* closest(Entry* entry1, Entry* entry2,  float x, float y, float z);
 };
 

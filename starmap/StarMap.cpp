@@ -133,7 +133,7 @@ Entry* KDtree::closest(Entry* e1, Entry* e2, float x, float y, float z) {
   }
   return e2;
 }
-Entry* KDtree::nearestNeighbor(Entry* root, std::priority_queue<wrap> neighbor, size_t n,float x, float y, float z) { //if there are errors, this one is probably wrong as well
+Entry* KDtree::nearestNeighbor(Entry* root, std::priority_queue<wrap> *neighbor, size_t n,float x, float y, float z) { //if there are errors, this one is probably wrong as well
   if(!root) {
     return nullptr;
   }
@@ -165,17 +165,17 @@ Entry* KDtree::nearestNeighbor(Entry* root, std::priority_queue<wrap> neighbor, 
   wrap w;
   w.star = star;
   w.score = pow(root->star.x - x,2) + pow(root->star.y - y,2) + pow(root->star.z - z,2);
-  if(neighbor.size() < n) {
-    neighbor.push(w);
+  if(neighbor->size() < n) {
+    neighbor->push(w);
   }
-  else if(neighbor.top().score>w.score) {
-    neighbor.pop();
-    neighbor.push(w);
+  else if(neighbor->top().score>w.score) {
+    neighbor->pop();
+    neighbor->push(w);
   }
   Entry* temp = nearestNeighbor(nextBranch, neighbor, n, x, y, z);
   Entry* best = closest(temp,root ,x,y,z);
 
-  if(neighbor.size()<n||neighbor.top().score>abs(targetcompareval - rootcompareval)) {
+  if(neighbor->size()<n||neighbor->top().score>abs(targetcompareval - rootcompareval)) {
     temp = nearestNeighbor(otherBranch, neighbor, n, x, y, z);
   }
   return best;
@@ -183,14 +183,14 @@ Entry* KDtree::nearestNeighbor(Entry* root, std::priority_queue<wrap> neighbor, 
 
 std::vector<Star> KDtree::find(size_t n, float x, float y, float z) {
   std::vector<Star> nearestNeighbors = std::vector<Star>();
-  std::priority_queue<wrap> pqueue = std::priority_queue<wrap>();
+  std::priority_queue<wrap> *pqueue = new std::priority_queue<wrap>();
   if(!mRoot || n == 0) {
     return nearestNeighbors;
   }
-  nearestNeighbor(mRoot,pqueue,n, x, y, z);
-  while(!pqueue.empty()) {
-    wrap w = pqueue.top();
-    pqueue.pop();
+  nearestNeighbor(mRoot,pqueue, n , x, y, z);
+  while(!pqueue->empty()) {
+    wrap w = pqueue->top();
+    pqueue->pop();
     Star star = w.star;
     nearestNeighbors.push_back(star);
   }
