@@ -180,7 +180,7 @@ Entry* KDtree::nearestNeighbor(Entry* root, std::priority_queue<wrap> *neighbor,
   nearestNeighbor(nextBranch, neighbor, n, x, y, z);
   //Entry* best = closest(temp,root ,x,y,z);
 
-  if(neighbor->size()<n||neighbor->top().score>abs(targetcompareval - rootcompareval)) {
+  if(neighbor->size()<n||neighbor->top().score>std::abs(targetcompareval - rootcompareval)) {
     nearestNeighbor(otherBranch, neighbor, n, x, y, z);
   }
   return nullptr;
