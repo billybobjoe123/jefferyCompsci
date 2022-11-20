@@ -4,7 +4,7 @@
 #include "Star.h"
 #include "Helpers.h"
 #include <istream>
-
+#include <queue>
 #include <vector>
 
 class Entry {
