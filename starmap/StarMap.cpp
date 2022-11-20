@@ -1,6 +1,11 @@
 #include "StarMap.h"
 #include <cmath>
 #include<bits/stdc++.h> 
+
+float square(float x) {
+  return x * x;
+}
+
 Entry::Entry(Star star, Entry* parent, Entry* left, Entry* right) {
   this->star = star;
   this->parent = parent;
@@ -127,7 +132,7 @@ size_t KDtree::push(Entry* entry) { //if code doesn't work later, CHECK THIS
   return 0;
 }
 Entry* KDtree::closest(Entry* e1, Entry* e2, float x, float y, float z) {
-  bool comparison = pow(e1->star.x - x,2)+pow(e1->star.y-y,2)+pow(e1->star.z - z,2) < pow(e2->star.x - x,2)+pow(e2->star.y - y,2)+pow(e2->star.z - z,2);
+  bool comparison = square(e1->star.x - x)+square(e1->star.y-y)+square(e1->star.z - z) < square(e2->star.x - x)+square(e2->star.y-y)+square(e2->star.z - z);
   if (comparison) {
     return e1;
   }
@@ -164,7 +169,7 @@ Entry* KDtree::nearestNeighbor(Entry* root, std::priority_queue<wrap> *neighbor,
   Star star = root->star;
   wrap w;
   w.star = star;
-  w.score = pow(root->star.x - x,2) + pow(root->star.y - y,2) + pow(root->star.z - z,2);
+  w.score = square(root->star.x - x) + square(root->star.y - y) + square(root->star.z - z);
   if(neighbor->size() < n) {
     neighbor->push(w);
   }
