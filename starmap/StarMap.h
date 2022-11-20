@@ -4,6 +4,7 @@
 #include "Star.h"
 #include "Helpers.h"
 #include <istream>
+
 #include <vector>
 
 class Entry {
@@ -23,7 +24,7 @@ struct wrap
 {
     float score;
     Star star;
-    bool operator < (const Entry& other) const {
+    bool operator < (const wrap& other) const {
         return this->score < other.score;
     }
 };
