@@ -201,6 +201,10 @@ std::vector<Star> KDtree::find(size_t n, float x, float y, float z) {
 
 }
 
+std::vector<Star> StarMap::find(size_t n, float x, float y, float z) {
+  return kdtree->find(n, x, y, z);
+}
+
 StarMap::StarMap(std::istream& stream) {
   kdtree = new KDtree();
   std::string line;
@@ -225,6 +229,10 @@ StarMap::StarMap(std::istream& stream) {
     id++;
   }
 }
+
+
+
+
 StarMap::~StarMap(){
   delete kdtree;
 }
