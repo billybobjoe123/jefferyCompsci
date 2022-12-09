@@ -74,7 +74,7 @@ Trip Atlas::route(const std::string& src, const std::string& dst) {
   std::unordered_map<std::string,int> distances;
   std::unordered_map<std::string,Station::Edge> howTFdidIgethere;
   bool touchedDST = false;
-  if(stations.find(src)==stations.end() || stations.find(dst)==stations.end()) {
+  if(stations.find(src)==stations.end()) {
     throw std::runtime_error("No route.");
   }
   for(auto iter : stations) {
