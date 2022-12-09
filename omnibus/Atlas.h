@@ -16,8 +16,8 @@ class Station {
   
   public:
   struct Edge {
-  Station* start;
-  Station* end;
+  Station* away;
+  Station* to;
   int dist;
   bool isTrain;
   std::string route;

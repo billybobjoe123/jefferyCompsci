@@ -25,13 +25,15 @@ Atlas::Atlas(std::istream& stream) {
 
     
     if(identifier == "TRAIN:") {
-      sstream >> line;
+      sstream >> std::ws;
+      std::getline(sstream, line);
       isTrain = true;
       prev = "";
       prevNum = 0;
     }
     else if (identifier == "BUS:") {
-      sstream >> line;
+      sstream >> std::ws;
+      std::getline(sstream, line);
       isTrain = false;
       prev = "";
       prevNum = 0;
@@ -49,10 +51,11 @@ Atlas::Atlas(std::istream& stream) {
       }
       else {
         Station::Edge edge;
-        edge.start = stations[prev];
-        edge.end = stations[name];
+        edge.away = stations[prev];
+        edge.to = stations[name];
         edge.dist = num-prevNum;
         prevNum = num;
+        prev = name;
         edge.isTrain = isTrain;
         edge.route = line;
         stations[name]->edges.insert(edge);
@@ -96,17 +99,17 @@ Trip Atlas::route(const std::string& src, const std::string& dst) {
       touchedDST = true;
     }
     for(auto i : s->edges) {
-      if(i.isTrain && distances[i.end->name]>i.dist + distances[i.start->name]) {
-        distances[i.end->name] = i.dist + distances[i.start->name];
-        howTFdidIgethere[i.end->name] = i;
-        pq.push(std::make_pair(i.dist,i.end));
+      if(i.isTrain && distances[i.away->name]>i.dist + distances[i.to->name]) {
+        distances[i.away->name] = i.dist + distances[i.to->name];
+        howTFdidIgethere[i.away->name] = i;
+        pq.push(std::make_pair(i.dist,i.to));
       }
-      else if (!i.isTrain) {
-        distances[i.end->name] = distances[i.start->name];
+      else if (!i.isTrain && distances[i.away->name]>distances[i.to->name]) {
+        distances[i.away->name] = distances[i.to->name];
 
-        howTFdidIgethere[i.end->name] = i;
+        howTFdidIgethere[i.away->name] = i;
 
-        pq.push(std::make_pair(0,i.end));
+        pq.push(std::make_pair(0,i.away));
       }
     }
     visited.insert(s->name);
@@ -122,7 +125,7 @@ Trip Atlas::route(const std::string& src, const std::string& dst) {
   while (true) {
     returnEdge = howTFdidIgethere[name];
     srcToDst.push_back(returnEdge);
-    name = returnEdge.start->name;
+    name = returnEdge.to->name;
     if(howTFdidIgethere.find(name) == howTFdidIgethere.end()) {
       break;
     }
@@ -133,7 +136,7 @@ Trip Atlas::route(const std::string& src, const std::string& dst) {
   for(size_t i = 0;i<srcToDst.size();i++) {
     Trip::Leg leg;
     leg.line = srcToDst[i].route;
-    leg.stop = srcToDst[i].end->name;
+    leg.stop = srcToDst[i].away->name;
     trip.legs.push_back(leg);
   }
   return trip;
