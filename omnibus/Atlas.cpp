@@ -50,7 +50,7 @@ Atlas::Atlas(std::istream& stream) {
         prev = name;
       }
       else {
-        Edge edge = Edge();
+        Station::Edge edge;
         edge.start = stations[prev];
         edge.end = stations[name];
         edge.dist = num-prevNum;
@@ -72,9 +72,9 @@ Atlas::~Atlas() {
 
 Trip Atlas::route(const std::string& src, const std::string& dst) {
   std::unordered_set<std::string> visited;
-  std::priority_queue<std::pair<int, Station*>,std::vector<std::pair<int,Station*>>,compare> pq;
+  std::priority_queue<std::pair<int, Station*>,std::vector<std::pair<int,Station*>>> pq;
   std::unordered_map<std::string,int> distances;
-  std::unordered_map<std::string,std::vector<Edge>> howTFdidIgethere;
+  std::unordered_map<std::string,std::vector<Station::Edge>> howTFdidIgethere;
   bool touchedDST = false;
   if(stations.find(src)==stations.end() || stations.find(dst)==stations.end()) {
     throw std::runtime_error("No route");
@@ -102,7 +102,7 @@ Trip Atlas::route(const std::string& src, const std::string& dst) {
       if(i.isTrain && distances[i.end->name]>i.dist + distances[i.start->name]) {
         distances[i.end->name] = i.dist + distances[i.start->name];
 
-        std::vector<Edge> prev = howTFdidIgethere[i.start->name];
+        std::vector<Station::Edge> prev = howTFdidIgethere[i.start->name];
         howTFdidIgethere[i.end->name] = prev;
         howTFdidIgethere[i.end->name].push_back(i);
 
@@ -111,7 +111,7 @@ Trip Atlas::route(const std::string& src, const std::string& dst) {
       else if (!i.isTrain) {
         distances[i.end->name] = distances[i.start->name];
 
-        std::vector<Edge> prev = howTFdidIgethere[i.start->name];
+        std::vector<Station::Edge> prev = howTFdidIgethere[i.start->name];
         howTFdidIgethere[i.end->name] = prev;
         howTFdidIgethere[i.end->name].push_back(i);
 
@@ -125,7 +125,7 @@ Trip Atlas::route(const std::string& src, const std::string& dst) {
     throw std::runtime_error("No route");
   }
 
-  std::vector<Edge> edges = howTFdidIgethere[dst];
+  std::vector<Station::Edge> edges = howTFdidIgethere[dst];
   Trip trip;
   trip.start = src;
   for(int i = 0;i<edges.size();i++) {
