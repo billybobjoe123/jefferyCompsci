@@ -7,16 +7,13 @@ Station::Station(std::string name) {
   edges = std::set<Edge>();
 }
 
-bool greater(Station first, Station second) {
-
-}
 
 Atlas::Atlas(std::istream& stream) {
   stations = std::unordered_map<std::string,Station*>();
 
   bool isTrain = false;
   std::string line,identifier,numS, name;
-  int num,prevNum;
+  int num,prevNum = 0;
   std::string prev = "";
   stream >> std::ws;
   while(std::getline(stream,line)) {
@@ -90,7 +87,6 @@ Trip Atlas::route(const std::string& src, const std::string& dst) {
   }
   while(!pq.empty()) {
     Station* s = pq.top().second;
-    int dist = pq.top().first;
     pq.pop();
     if(visited.count(s->name)) {
       continue;
@@ -128,7 +124,7 @@ Trip Atlas::route(const std::string& src, const std::string& dst) {
   std::vector<Station::Edge> edges = howTFdidIgethere[dst];
   Trip trip;
   trip.start = src;
-  for(int i = 0;i<edges.size();i++) {
+  for(size_t i = 0;i<edges.size();i++) {
     Trip::Leg leg;
     leg.line = edges[i].route;
     leg.stop = edges[i].end->name;
