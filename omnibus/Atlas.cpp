@@ -1,6 +1,7 @@
 #include "Atlas.h"
 #include<bits/stdc++.h> 
 #include "Trip.h"
+#include <algorithm>
 #define INF 0x3f3f3f3f
 Station::Station(std::string name) {
   this->name = name;
@@ -71,10 +72,10 @@ Trip Atlas::route(const std::string& src, const std::string& dst) {
   std::unordered_set<std::string> visited;
   std::priority_queue<std::pair<int, Station*>,std::vector<std::pair<int,Station*>>> pq;
   std::unordered_map<std::string,int> distances;
-  std::unordered_map<std::string,std::vector<Station::Edge>> howTFdidIgethere;
+  std::unordered_map<std::string,Station::Edge> howTFdidIgethere;
   bool touchedDST = false;
   if(stations.find(src)==stations.end() || stations.find(dst)==stations.end()) {
-    throw std::runtime_error("No route");
+    throw std::runtime_error("No route.");
   }
   for(auto iter : stations) {
     if(iter.first == src) {
@@ -97,19 +98,13 @@ Trip Atlas::route(const std::string& src, const std::string& dst) {
     for(auto i : s->edges) {
       if(i.isTrain && distances[i.end->name]>i.dist + distances[i.start->name]) {
         distances[i.end->name] = i.dist + distances[i.start->name];
-
-        std::vector<Station::Edge> prev = howTFdidIgethere[i.start->name];
-        howTFdidIgethere[i.end->name] = prev;
-        howTFdidIgethere[i.end->name].push_back(i);
-
+        howTFdidIgethere[i.end->name] = i;
         pq.push(std::make_pair(i.dist,i.end));
       }
       else if (!i.isTrain) {
         distances[i.end->name] = distances[i.start->name];
 
-        std::vector<Station::Edge> prev = howTFdidIgethere[i.start->name];
-        howTFdidIgethere[i.end->name] = prev;
-        howTFdidIgethere[i.end->name].push_back(i);
+        howTFdidIgethere[i.end->name] = i;
 
         pq.push(std::make_pair(0,i.end));
       }
@@ -118,16 +113,27 @@ Trip Atlas::route(const std::string& src, const std::string& dst) {
   }
 
   if(!touchedDST) {
-    throw std::runtime_error("No route");
+    throw std::runtime_error("No route.");
   }
+  std::vector<Station::Edge> srcToDst;
+  std::string name = dst;
+  Station::Edge returnEdge;
 
-  std::vector<Station::Edge> edges = howTFdidIgethere[dst];
+  while (true) {
+    returnEdge = howTFdidIgethere[name];
+    srcToDst.push_back(returnEdge);
+    name = returnEdge.start->name;
+    if(howTFdidIgethere.find(name) == howTFdidIgethere.end()) {
+      break;
+    }
+  }
   Trip trip;
   trip.start = src;
-  for(size_t i = 0;i<edges.size();i++) {
+  std::reverse(srcToDst.begin(),srcToDst.end());
+  for(size_t i = 0;i<srcToDst.size();i++) {
     Trip::Leg leg;
-    leg.line = edges[i].route;
-    leg.stop = edges[i].end->name;
+    leg.line = srcToDst[i].route;
+    leg.stop = srcToDst[i].end->name;
     trip.legs.push_back(leg);
   }
   return trip;
