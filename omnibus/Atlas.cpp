@@ -51,14 +51,15 @@ Atlas::Atlas(std::istream& stream) {
       }
       else {
         Station::Edge edge;
+        Station::Edge ed;
+
         edge.away = stations[prev];
         edge.to = stations[name];
         edge.dist = num-prevNum;
-        
         edge.isTrain = isTrain;
         edge.route = line;
         stations[name]->edges.insert(edge);
-        Station::Edge ed;
+        
         ed.away = edge.to;
         ed.to = edge.away;
         ed.dist = edge.dist;
@@ -107,17 +108,17 @@ Trip Atlas::route(const std::string& src, const std::string& dst) {
       touchedDST = true;
     }
     for(auto i : s->edges) {
-      if(i.isTrain && distances[i.away->name]>i.dist + distances[i.to->name]) {
-        distances[i.away->name] = i.dist + distances[i.to->name];
-        howTFdidIgethere[i.away->name] = i;
-        pq.push(std::make_pair(i.dist,i.to));
+      if(i.isTrain && distances[i.to->name]>i.dist + distances[i.away->name]) {
+        distances[i.to->name] = i.dist + distances[i.away->name];
+        howTFdidIgethere[i.to->name] = i;
+        pq.push(std::make_pair(i.dist,i.away));
       }
-      else if (!i.isTrain && distances[i.away->name]>1 + distances[i.to->name]) {
-        distances[i.away->name] = 1 + distances[i.to->name];
+      else if (!i.isTrain && distances[i.to->name]>1 + distances[i.away->name]) {
+        distances[i.to->name] = 1 + distances[i.away->name];
 
-        howTFdidIgethere[i.away->name] = i;
+        howTFdidIgethere[i.to->name] = i;
 
-        pq.push(std::make_pair(0,i.away));
+        pq.push(std::make_pair(0,i.to));
       }
     }
     visited.insert(s->name);
@@ -133,7 +134,7 @@ Trip Atlas::route(const std::string& src, const std::string& dst) {
   while (true) {
     returnEdge = howTFdidIgethere[name];
     srcToDst.push_back(returnEdge);
-    name = returnEdge.to->name;
+    name = returnEdge.away->name;
     if(howTFdidIgethere.find(name) == howTFdidIgethere.end()) {
       break;
     }
@@ -144,7 +145,7 @@ Trip Atlas::route(const std::string& src, const std::string& dst) {
   for(size_t i = 0;i<srcToDst.size();i++) {
     Trip::Leg leg;
     leg.line = srcToDst[i].route;
-    leg.stop = srcToDst[i].away->name;
+    leg.stop = srcToDst[i].to->name;
     trip.legs.push_back(leg);
   }
   return trip;
