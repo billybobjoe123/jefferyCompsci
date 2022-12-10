@@ -142,11 +142,25 @@ Trip Atlas::route(const std::string& src, const std::string& dst) {
   Trip trip;
   trip.start = src;
   std::reverse(srcToDst.begin(),srcToDst.end());
-  for(size_t i = 0;i<srcToDst.size();i++) {
-    Trip::Leg leg;
-    leg.line = srcToDst[i].route;
-    leg.stop = srcToDst[i].to->name;
-    trip.legs.push_back(leg);
+  std::string lastStation = "";
+  std::string prevRoute = "";
+  for(int i = 0;i<srcToDst.size();i++) {
+    if(srcToDst[i].route!=prevRoute) {
+      Trip::Leg leg;
+      leg.line = srcToDst[i].route;
+      if(prevRoute!="") {
+        trip.legs.back().stop = srcToDst[i-1].to->name;
+      }
+      trip.legs.push_back(leg);
+      lastStation = srcToDst[i].to->name;
+      prevRoute = srcToDst[i].route;
+    }
+    else {
+      lastStation = srcToDst[i].to->name;
+      if (lastStation == dst) {
+        trip.legs.back().stop = dst;
+      }
+    }
   }
   return trip;
 }
