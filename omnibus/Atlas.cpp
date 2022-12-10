@@ -145,28 +145,25 @@ Trip Atlas::route(const std::string& src, const std::string& dst) {
     return trip;
   }
   std::reverse(srcToDst.begin(),srcToDst.end());
+  std::vector<Station::Edge> queue;
   std::string lastStation = "";
   std::string prevRoute = "";
   for(size_t i = 0;i<srcToDst.size()-1;i++) {
-    if(srcToDst[i].route!=prevRoute) {
+    queue.push_back(srcToDst[i]);
+    if(queue.back().route!=prevRoute) {
+      Station::Edge temp = queue.back();
+      queue.pop_back();
       Trip::Leg leg;
-      leg.line = srcToDst[i].route;
-      trip.legs.push_back(leg);
-      if(srcToDst[i+1].route!=srcToDst[i].route) {
-        leg.stop = srcToDst[i].to->name;
-        leg.line = leg.line +" to "+ leg.stop;
-      }
-      prevRoute = srcToDst[i].route;
+      leg.stop = queue.back().to->name;
+      leg.line = queue.back().route + " to " + leg.stop;
+      queue.clear();
+      queue.push_back(temp);
     }
-    else {
-      if(srcToDst[i+1].route!=srcToDst[i].route) {
-        trip.legs.back().stop = srcToDst[i].to->name;
-        trip.legs.back().line = trip.legs.back().line + " to " + trip.legs.back().stop;
-      }
-      prevRoute = srcToDst[i].route;
-    }
-
+    prevRoute = srcToDst[i].route;
   }
+  Trip::Leg l;
+  l.stop = dst;
+  l.line = queue.back().route + " to " + dst;
   return trip;
 }
 
