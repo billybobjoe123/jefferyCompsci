@@ -144,7 +144,7 @@ Trip Atlas::route(const std::string& src, const std::string& dst) {
   std::reverse(srcToDst.begin(),srcToDst.end());
   std::string lastStation = "";
   std::string prevRoute = "";
-  for(int i = 0;i<srcToDst.size();i++) {
+  for(size_t i = 0;i<srcToDst.size();i++) {
     if(srcToDst[i].route!=prevRoute) {
       Trip::Leg leg;
       leg.line = srcToDst[i].route;
