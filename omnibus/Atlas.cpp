@@ -53,8 +53,8 @@ Atlas::Atlas(std::istream& stream) {
         Station::Edge edge;
         Station::Edge ed;
 
-        edge.away = stations[prev];
-        edge.to = stations[name];
+        edge.away = stations[name];
+        edge.to = stations[prev];
         edge.dist = num-prevNum;
         edge.isTrain = isTrain;
         edge.route = line;
