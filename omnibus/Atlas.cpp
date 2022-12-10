@@ -150,7 +150,7 @@ Trip Atlas::route(const std::string& src, const std::string& dst) {
   std::string prevRoute = "";
   for(size_t i = 0;i<srcToDst.size()-1;i++) {
     queue.push_back(srcToDst[i]);
-    if(queue.back().route!=prevRoute) {
+    if(queue.back().route!=prevRoute && !queue.empty()) {
       Station::Edge temp = queue.back();
       queue.pop_back();
       Trip::Leg leg;
