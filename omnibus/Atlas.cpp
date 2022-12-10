@@ -13,7 +13,7 @@ Atlas::Atlas(std::istream& stream) {
   stations = std::unordered_map<std::string,Station*>();
 
   bool isTrain = false;
-  std::string line,identifier,numS, name;
+  std::string line,identifier,numS, name, lane;
   int num,prevNum = 0;
   std::string prev = "";
   stream >> std::ws;
@@ -26,14 +26,14 @@ Atlas::Atlas(std::istream& stream) {
     
     if(identifier == "TRAIN:") {
       sstream >> std::ws;
-      std::getline(sstream, line);
+      std::getline(sstream, lane);
       isTrain = true;
       prev = "";
       prevNum = 0;
     }
     else if (identifier == "BUS:") {
       sstream >> std::ws;
-      std::getline(sstream, line);
+      std::getline(sstream, lane);
       isTrain = false;
       prev = "";
       prevNum = 0;
@@ -57,14 +57,14 @@ Atlas::Atlas(std::istream& stream) {
         edge.to = stations[prev];
         edge.dist = num-prevNum;
         edge.isTrain = isTrain;
-        edge.route = line;
+        edge.route = lane;
         stations[name]->edges.insert(edge);
         
         ed.away = edge.to;
         ed.to = edge.away;
         ed.dist = edge.dist;
         ed.isTrain = isTrain;
-        ed.route = line;
+        ed.route = lane;
         stations[prev]->edges.insert(ed);
         prevNum = num;
         prev = name;
