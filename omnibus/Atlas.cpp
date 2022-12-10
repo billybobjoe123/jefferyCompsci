@@ -111,7 +111,7 @@ Trip Atlas::route(const std::string& src, const std::string& dst) {
       if(i.isTrain && distances[i.to->name]>i.dist + distances[i.away->name]) {
         distances[i.to->name] = i.dist + distances[i.away->name];
         howTFdidIgethere[i.to->name] = i;
-        pq.push(std::make_pair(i.dist,i.away));
+        pq.push(std::make_pair(i.dist,i.to));
       }
       else if (!i.isTrain && distances[i.to->name]>1 + distances[i.away->name]) {
         distances[i.to->name] = 1 + distances[i.away->name];
