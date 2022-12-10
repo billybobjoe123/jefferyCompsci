@@ -54,11 +54,19 @@ Atlas::Atlas(std::istream& stream) {
         edge.away = stations[prev];
         edge.to = stations[name];
         edge.dist = num-prevNum;
-        prevNum = num;
-        prev = name;
+        
         edge.isTrain = isTrain;
         edge.route = line;
         stations[name]->edges.insert(edge);
+        Station::Edge ed;
+        ed.away = edge.to;
+        ed.to = edge.away;
+        ed.dist = edge.dist;
+        ed.isTrain = isTrain;
+        ed.route = line;
+        stations[prev]->edges.insert(ed);
+        prevNum = num;
+        prev = name;
       }
     }
   }
@@ -105,7 +113,7 @@ Trip Atlas::route(const std::string& src, const std::string& dst) {
         pq.push(std::make_pair(i.dist,i.to));
       }
       else if (!i.isTrain && distances[i.away->name]>1 + distances[i.to->name]) {
-        distances[i.away->name] = distances[i.to->name];
+        distances[i.away->name] = 1 + distances[i.to->name];
 
         howTFdidIgethere[i.away->name] = i;
 
