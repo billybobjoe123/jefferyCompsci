@@ -155,7 +155,7 @@ Trip Atlas::route(const std::string& src, const std::string& dst) {
       queue.pop_back();
       Trip::Leg leg;
       leg.stop = queue.back().to->name;
-      leg.line = queue.back().route + " to " + leg.stop;
+      leg.line = queue.back().route;
       queue.clear();
       queue.push_back(temp);
       trip.legs.push_back(leg);
