@@ -163,7 +163,7 @@ Trip Atlas::route(const std::string& src, const std::string& dst) {
   }
   Trip::Leg l;
   l.stop = dst;
-  l.line = queue.back().route + " to " + dst;
+  l.line = queue.back().route;
   trip.legs.push_back(l);
   return trip;
 }
