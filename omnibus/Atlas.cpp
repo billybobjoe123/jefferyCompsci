@@ -104,7 +104,7 @@ Trip Atlas::route(const std::string& src, const std::string& dst) {
   while(!pq.empty()) { //dijkstras
     //std::cout<<"line 105 before iteration"<<std::endl;
     Station* s = pq.top().second;
-    std::cout<<s->name<<std::endl; 
+    //std::cout<<s->name<<std::endl; 
     pq.pop();
     //std::cout<<"line 109 before iteration"<<std::endl;
     if(visited.count(s->name)) {
@@ -142,7 +142,7 @@ Trip Atlas::route(const std::string& src, const std::string& dst) {
   Station::Edge returnEdge;
   //std::cout<<"line 143 before trip"<<std::endl;
   while (true) {
-    std::cout<<"line 145: "<<name<<std::endl;
+    //std::cout<<"line 145: "<<name<<std::endl;
     returnEdge = howTFdidIgethere[name];
     srcToDst.push_back(returnEdge);
     name = returnEdge.away->name;
