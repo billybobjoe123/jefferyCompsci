@@ -58,6 +58,9 @@ Atlas::Atlas(std::istream& stream) {
         edge.dist = num-prevNum;
         edge.isTrain = isTrain;
         edge.route = lane;
+        if(edge.isTrain) {
+          edge.dist = edge.dist*100;
+        }
         stations[name]->edges.insert(edge);
         
         ed.away = edge.to;
@@ -65,6 +68,9 @@ Atlas::Atlas(std::istream& stream) {
         ed.dist = edge.dist;
         ed.isTrain = isTrain;
         ed.route = lane;
+        if(ed.isTrain) {
+          ed.dist = ed.dist*100;
+        }
         stations[prev]->edges.insert(ed);
         prevNum = num;
         prev = name;
@@ -120,14 +126,15 @@ Trip Atlas::route(const std::string& src, const std::string& dst) {
       if(i.isTrain && distances[i.to->name]>i.dist + distances[i.away->name]) {
         distances[i.to->name] = i.dist + distances[i.away->name];
         howTFdidIgethere[i.to->name] = i;
+        
         pq.push(std::make_pair(i.dist,i.to));
       }
-      else if (!i.isTrain && distances[i.to->name]>1 + distances[i.away->name]) {
+      else if (!i.isTrain && distances[i.to->name] > 1 + distances[i.away->name]) {
+        
         distances[i.to->name] = 1 + distances[i.away->name];
-
         howTFdidIgethere[i.to->name] = i;
+        pq.push(std::make_pair(1,i.to));
 
-        pq.push(std::make_pair(0,i.to));
       }
     }
     visited.insert(s->name);
@@ -162,7 +169,7 @@ Trip Atlas::route(const std::string& src, const std::string& dst) {
   std::string lastStation = "";
   std::string prevRoute = "";
   //std::cout<<"line 164"<<std::endl;
-  for(size_t i = 0;i<srcToDst.size()-1;i++) {
+  for(size_t i = 0;i<srcToDst.size()-1;i++) { 
     queue.push_back(srcToDst[i]);
     if(queue.back().route!=prevRoute && queue.size()>1) {
       Station::Edge temp = queue.back();
