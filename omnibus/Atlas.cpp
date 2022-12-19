@@ -5,7 +5,7 @@
 #define INF 0x3f3f3f3f
 Station::Station(std::string name) {
   this->name = name;
-  edges = std::set<Edge>();
+  edges = std::vector<Edge>();
 }
 
 
@@ -17,6 +17,8 @@ Atlas::Atlas(std::istream& stream) {
   int num,prevNum = 0;
   std::string prev = "";
   stream >> std::ws;
+  
+  
   while(std::getline(stream,line)) {
     if(line.length() == 0 || line[0] == '#') 
 		  continue;
@@ -44,15 +46,18 @@ Atlas::Atlas(std::istream& stream) {
       std::getline(sstream, name);	
       if (stations.find(name) == stations.end()) {
         Station *station = new Station(name);
+        //std::cout<<"new Station"<<station->name<<std::endl;
         stations[name] = station;
       }
       if (prev == "") {
         prev = name;
+        prevNum = num;
       }
       else {
         Station::Edge edge;
         Station::Edge ed;
-
+        //std::cout<<prev<<std::endl;
+        //std::cout<<name<<std::endl;
         edge.away = stations[name];
         edge.to = stations[prev];
         edge.dist = num-prevNum;
@@ -61,19 +66,18 @@ Atlas::Atlas(std::istream& stream) {
         if(edge.isTrain) {
           edge.dist = edge.dist*100;
         }
-        stations[name]->edges.insert(edge);
+        stations[name]->edges.push_back(edge);
         
         ed.away = edge.to;
         ed.to = edge.away;
         ed.dist = edge.dist;
         ed.isTrain = isTrain;
         ed.route = lane;
-        if(ed.isTrain) {
-          ed.dist = ed.dist*100;
-        }
-        stations[prev]->edges.insert(ed);
+        stations[prev]->edges.push_back(ed);
         prevNum = num;
         prev = name;
+        //std::cout<<"edge Away:"<<edge.away->name<<" edge to:"<<edge.to->name<<" ed away:"<<ed.away->name<<" ed to:"<<ed.to->name<<std::endl;
+        //std::cout<<stations[name]->edges.size()<<" "<<stations[name]->edges.size()<<std::endl;
       }
     }
   }
@@ -91,8 +95,8 @@ Trip Atlas::route(const std::string& src, const std::string& dst) {
   std::priority_queue<std::pair<int, Station*>,std::vector<std::pair<int,Station*>>> pq;
   std::unordered_map<std::string,int> distances;
   std::unordered_map<std::string,Station::Edge> howTFdidIgethere;
+  //std::cout<<stations.size()<<std::endl;
   bool touchedDST = false; //to check if desstination has been visited, if false at the end, throw error
-  //std::cout<<"line 89"<<std::endl;
   if(stations.find(src)==stations.end() || stations.find(dst)==stations.end()) { //see if src and dst exist in stations map
     throw std::runtime_error("No route.");
   }
@@ -106,39 +110,37 @@ Trip Atlas::route(const std::string& src, const std::string& dst) {
       distances.insert(std::make_pair(iter.first,INF));
     }
   }
-  //std::cout<<"line 103"<<std::endl;
+  //std::cout<<"line 106"<<std::endl;
   while(!pq.empty()) { //dijkstras
-    //std::cout<<"line 105 before iteration"<<std::endl;
     Station* s = pq.top().second;
     //std::cout<<s->name<<std::endl; 
     pq.pop();
-    //std::cout<<"line 109 before iteration"<<std::endl;
     if(visited.count(s->name)) {
-
       continue;
     }
-    //std::cout<<"line 112 before iteration"<<std::endl;
     if(dst == s->name) {
       touchedDST = true;
     }
-    //std::cout<<"line 115 before iteration"<<std::endl;
+    //std::cout<<"line 118 before iteration"<<std::endl;
     for(auto i : s->edges) {
+      //std::cout<<"to:"<<i.to->name<<" away:"<<i.away->name<<" dist:"<<i.dist<<" isTrain:"<<i.isTrain<<" route:"<<i.route<<" eStart:"<<distances[i.away->name]<<" eEnd:"<<distances[i.to->name]<<std::endl;
+      //std::cout<<"number of edges: "<<s->edges.size()<<std::endl;
       if(i.isTrain && distances[i.to->name]>i.dist + distances[i.away->name]) {
         distances[i.to->name] = i.dist + distances[i.away->name];
         howTFdidIgethere[i.to->name] = i;
-        
-        pq.push(std::make_pair(i.dist,i.to));
+        pq.push(std::make_pair(distances[i.to->name],i.to));
+        //std::cout<<"Train, eEnd new dist:"<<distances[i.to->name]<<std::endl;
       }
       else if (!i.isTrain && distances[i.to->name] > 1 + distances[i.away->name]) {
         
         distances[i.to->name] = 1 + distances[i.away->name];
         howTFdidIgethere[i.to->name] = i;
-        pq.push(std::make_pair(1,i.to));
-
+        pq.push(std::make_pair(distances[i.to->name],i.to));
+        //std::cout<<"bus , eEnd new dist:"<<distances[i.to->name]<<std::endl;
       }
     }
     visited.insert(s->name);
-    //std::cout<<"line 134 after iteration"<<std::endl;
+    //std::cout<<pq.size()<<std::endl;
   }
   //std::cout<<"line 136 after whileloop"<<std::endl;
   if(!touchedDST) {
@@ -190,6 +192,7 @@ Trip Atlas::route(const std::string& src, const std::string& dst) {
   l.line = srcToDst.back().route;
   trip.legs.push_back(l);
   //std::cout<<"line 184"<<std::endl;
+
   return trip;
 }
 

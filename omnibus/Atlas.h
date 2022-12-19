@@ -26,7 +26,7 @@ class Station {
   }
   };
   std::string name;
-  std::set<Edge> edges;
+  std::vector<Edge> edges;
   Station(std::string name);
 };
 
