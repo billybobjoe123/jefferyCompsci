@@ -47,7 +47,7 @@ Atlas::Atlas(std::istream& stream) {
       std::getline(sstream, name);	
       if (stations.find(name) == stations.end()) {
         Station *station = new Station(name);
-        //std::cout<<"new Station"<<station->name<<std::endl;
+        ////std::cout<<"new Station"<<station->name<<std::endl;
         stations[name] = station;
       }
       if (prev == "") {
@@ -57,8 +57,8 @@ Atlas::Atlas(std::istream& stream) {
       else {
         Station::Edge edge;
         Station::Edge ed;
-        //std::cout<<prev<<std::endl;
-        //std::cout<<name<<std::endl;
+        ////std::cout<<prev<<std::endl;
+        ////std::cout<<name<<std::endl;
         edge.away = stations[name];
         edge.to = stations[prev];
         edge.dist = num-prevNum;
@@ -77,8 +77,8 @@ Atlas::Atlas(std::istream& stream) {
         stations[prev]->edges.push_back(ed);
         prevNum = num;
         prev = name;
-        //std::cout<<"edge Away:"<<edge.away->name<<" edge to:"<<edge.to->name<<" ed away:"<<ed.away->name<<" ed to:"<<ed.to->name<<std::endl;
-        //std::cout<<stations[name]->edges.size()<<" "<<stations[name]->edges.size()<<std::endl;
+        ////std::cout<<"edge Away:"<<edge.away->name<<" edge to:"<<edge.to->name<<" ed away:"<<ed.away->name<<" ed to:"<<ed.to->name<<std::endl;
+        ////std::cout<<stations[name]->edges.size()<<" "<<stations[name]->edges.size()<<std::endl;
       }
     }
   }
@@ -97,7 +97,7 @@ Trip Atlas::route(const std::string& src, const std::string& dst) {
   std::unordered_map<std::string,int> distances;
   std::unordered_map<std::string,Station::Edge> howTFdidIgethere;
   
-  std::cout<<stations.size()<<std::endl;
+  //std::cout<<stations.size()<<std::endl;
   bool touchedDST = false; //to check if desstination has been visited, if false at the end, throw error
   if(stations.find(src)==stations.end() || stations.find(dst)==stations.end()) { //see if src and dst exist in stations map
     throw std::runtime_error("No route.");
@@ -111,10 +111,10 @@ Trip Atlas::route(const std::string& src, const std::string& dst) {
       distances.insert(std::make_pair(iter.first,INF)); 
     }
   }
-  //std::cout<<"line 106"<<std::endl;
+  ////std::cout<<"line 106"<<std::endl;
   while(!pq.empty()) { //dijkstras
     Station* s = pq.top().second;
-    std::cout<<s->name<<std::endl; 
+    //std::cout<<s->name<<std::endl; 
     pq.pop();
     if(visited.count(s->name)) {
       continue;
@@ -123,40 +123,40 @@ Trip Atlas::route(const std::string& src, const std::string& dst) {
       touchedDST = true;
       break;
     }
-    //std::cout<<"line 118 before iteration"<<std::endl;
+    ////std::cout<<"line 118 before iteration"<<std::endl;
     for(auto i : s->edges) {
-      std::cout<<"to:"<<i.to->name<<" away:"<<i.away->name<<" dist:"<<i.dist<<" isTrain:"<<i.isTrain<<" route:"<<i.route<<" eStart:"<<distances[i.away->name]<<" eEnd:"<<distances[i.to->name]<<std::endl;
-      std::cout<<"number of edges: "<<s->edges.size()<<std::endl;
+      //std::cout<<"to:"<<i.to->name<<" away:"<<i.away->name<<" dist:"<<i.dist<<" isTrain:"<<i.isTrain<<" route:"<<i.route<<" eStart:"<<distances[i.away->name]<<" eEnd:"<<distances[i.to->name]<<std::endl;
+      //std::cout<<"number of edges: "<<s->edges.size()<<std::endl;
       if(i.isTrain && distances[i.to->name] > i.dist + distances[i.away->name]) {
         distances[i.to->name] = i.dist + distances[i.away->name];
         howTFdidIgethere[i.to->name] = i;
         pq.push(std::make_pair(distances[i.to->name],i.to));
-        std::cout<<"Train, eEnd new dist:"<<distances[i.to->name]<<std::endl;
+        //std::cout<<"Train, eEnd new dist:"<<distances[i.to->name]<<std::endl;
       }
       else if (!i.isTrain && distances[i.to->name] > i.dist + distances[i.away->name]) {
         
         distances[i.to->name] = i.dist + distances[i.away->name];
         howTFdidIgethere[i.to->name] = i;
         pq.push(std::make_pair(distances[i.to->name],i.to));
-        std::cout<<"Bus, eEnd new dist:"<<distances[i.to->name]<<std::endl;
+        //std::cout<<"Bus, eEnd new dist:"<<distances[i.to->name]<<std::endl;
       }
     }
     visited.insert(s->name);
-    std::cout<<"pq size:"<<pq.size()<<std::endl;
+    //std::cout<<"pq size:"<<pq.size()<<std::endl;
   }
-  //std::cout<<"line 136 after whileloop"<<std::endl;
+  ////std::cout<<"line 136 after whileloop"<<std::endl;
   if(!touchedDST) { 
     throw std::runtime_error("No route.");
   }
   std::vector<Station::Edge> srcToDst;
   std::string name = dst;
-  //std::cout<<"line 143 before trip"<<std::endl;
+  ////std::cout<<"line 143 before trip"<<std::endl;
   while (true) {
-    std::cout<<"line 145: "<<name<<std::endl;
+    //std::cout<<"line 145: "<<name<<std::endl;
     Station::Edge returnEdge = howTFdidIgethere[name];
     srcToDst.push_back(returnEdge);
     name = returnEdge.away->name;
-    //std::cout<<"line 149: "<<name<<std::endl;
+    ////std::cout<<"line 149: "<<name<<std::endl;
     if(howTFdidIgethere.find(name) == howTFdidIgethere.end()) {
       break;
     }
@@ -166,12 +166,12 @@ Trip Atlas::route(const std::string& src, const std::string& dst) {
   if (srcToDst.size()==0) {
     return trip;
   }
-  //std::cout<<"line 159"<<std::endl;
+  ////std::cout<<"line 159"<<std::endl;
   std::reverse(srcToDst.begin(),srcToDst.end());
   std::vector<Station::Edge> queue;
   std::string lastStation = "";
   std::string prevRoute = "";
-  //std::cout<<"line 164"<<std::endl;
+  ////std::cout<<"line 164"<<std::endl;
   for(size_t i = 0;i<srcToDst.size()-1;i++) { 
     queue.push_back(srcToDst[i]);
     if(queue.back().route!=prevRoute && queue.size()>1) {
@@ -187,13 +187,13 @@ Trip Atlas::route(const std::string& src, const std::string& dst) {
     prevRoute = srcToDst[i].route;
 
   }
-  //std::cout<<"line 179"<<std::endl;
+  ////std::cout<<"line 179"<<std::endl;
   Trip::Leg l;
   l.stop = dst;
   l.line = srcToDst.back().route;
   trip.legs.push_back(l);
-  //std::cout<<"line 184"<<std::endl;
-  std::cout<<"src dist:"<<distances[src]<<" dst dist:"<<distances[dst]<<std::endl;
+  ////std::cout<<"line 184"<<std::endl;
+  //std::cout<<"src dist:"<<distances[src]<<" dst dist:"<<distances[dst]<<std::endl;
   return trip;
 }
 
