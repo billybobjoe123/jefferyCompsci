@@ -22,7 +22,7 @@ class Station {
   bool isTrain;
   std::string route;
   bool operator < (const Edge& other) const {
-    return this->dist > other.dist;
+    return this->dist < other.dist;
   }
   };
   std::string name;
