@@ -152,7 +152,7 @@ Trip Atlas::route(const std::string& src, const std::string& dst) {
   std::string name = dst;
   ////std::cout<<"line 143 before trip"<<std::endl;
   while (true) {
-    //std::cout<<"line 145: "<<name<<std::endl;
+    //std::cout<<name<<std::endl;
     Station::Edge returnEdge = howTFdidIgethere[name];
     srcToDst.push_back(returnEdge);
     name = returnEdge.away->name;
@@ -167,30 +167,31 @@ Trip Atlas::route(const std::string& src, const std::string& dst) {
     return trip;
   }
   ////std::cout<<"line 159"<<std::endl;
-  std::reverse(srcToDst.begin(),srcToDst.end());
-  std::vector<Station::Edge> queue;
-  std::string lastStation = "";
+  //std::reverse(srcToDst.begin(),srcToDst.end());
+  //std::vector<Station::Edge> queue;
+  std::string prevStation = "";
   std::string prevRoute = "";
   ////std::cout<<"line 164"<<std::endl;
-  for(size_t i = 0;i<srcToDst.size()-1;i++) { 
-    queue.push_back(srcToDst[i]);
-    if(queue.back().route!=prevRoute && queue.size()>1) {
-      Station::Edge temp = queue.back();
-      queue.pop_back();
+  size_t srcsize = srcToDst.size();
+  for(size_t i = 0;i<srcsize;i++) { 
+    std::string currStation = srcToDst.back().to->name;
+    std::string Route = srcToDst.back().route;
+    //std::cout<<"CurrS:"<<currStation<<" currRoute:"<<Route<<std::endl;
+    if(Route!=prevRoute && prevStation!="") {
+      //std::cout<<"entered"<<std::endl;
       Trip::Leg leg;
-      leg.stop = queue.back().to->name;
-      leg.line = queue.back().route;
-      queue.clear();
-      queue.push_back(temp);
+      leg.stop = prevStation;
+      leg.line = prevRoute;
       trip.legs.push_back(leg);
     }
-    prevRoute = srcToDst[i].route;
-
+    prevRoute = Route;
+    prevStation = currStation;
+    srcToDst.pop_back();
   }
   ////std::cout<<"line 179"<<std::endl;
   Trip::Leg l;
   l.stop = dst;
-  l.line = srcToDst.back().route;
+  l.line = prevRoute;
   trip.legs.push_back(l);
   ////std::cout<<"line 184"<<std::endl;
   //std::cout<<"src dist:"<<distances[src]<<" dst dist:"<<distances[dst]<<std::endl;
